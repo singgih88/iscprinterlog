@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <f:view>
+            <div id="usersList">
+                <h:form id="form1">
+                    <h:outputStylesheet library="css" name="main.css" />
+                    <p:dataTable var="user" value="#{usersBean.users}" paginator="true"
+                                 rows="5" paginatorPosition="bottom" width="10px" >
+                        <p:column styleClass="columnMainTable">
+                            <f:facet name="header">
+                                <h:outputText value="User Login" styleClass="headerTableTitle"/>
+                            </f:facet>
+                            <h:commandLink action="#{usersBean.selectUser}" value="#{user.login}" style="font-size: small">
+                                <f:param id="loginUserSelected" value="#{user.login}" name="loginUserSelected" />
+                            </h:commandLink>
+                        </p:column>
+                        <p:column styleClass="columnMainTable">
+                            <f:facet name="header">
+                                <h:outputText value="User Total Print" styleClass="headerTableTitle"/>
+                            </f:facet>
+                            <h:outputText value="#{user.totalPrint}" style="font-size: small"/>
+                        </p:column>
+                    </p:dataTable></h:form> </div>
+
+            <div>
+                <h:form id="form2">
+                    <h:outputText id="selectedUserBox" value="#{usersBean.selectedUser.name}" />
+                </h:form>
+            </div>
+                
+           
+        </f:view>
+    </h:body>
+</html>
+

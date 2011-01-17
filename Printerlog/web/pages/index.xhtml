@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title>ISC Printerlog System</title>
+    </h:head>
+    <h:body>
+        <h:form id="mainForm">
+            <table class="mainTable" border="1" width="700px" align="center">
+                <tr>
+                    <td width="33%"><h:link outcome="UserSession" value="User" target="mainBody" /></td>
+                    <td width="33%"><h:link outcome="PrinterSession" value="Printer" target="mainBody" /></td>
+                    <td width="33%"><h:link outcome="TimeSession" value="Time" target="mainBody" /></td>
+                </tr>
+                <tr>
+                    <td colspan="3" width="100%">
+                        <div id="divMainBody">
+                            <iframe id="mainBody" height="700px" width="100%" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </h:form>
+    </h:body>
+</html>
+
