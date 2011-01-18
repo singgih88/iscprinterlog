@@ -6,24 +6,15 @@ import com.iscbrazil.printerlog.pojo.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "usersBean")
-@SessionScoped
+@RequestScoped
 public class UsersBean {
 
     private List<User> users;
     private User selectedUser;
-
-    public String getEscolhido() {
-        return escolhido;
-    }
-
-    public void setEscolhido(String escolhido) {
-        this.escolhido = escolhido;
-    }
-    private String escolhido;
 
     public UsersBean() {
         this.selectedUser = new User();
@@ -50,20 +41,4 @@ public class UsersBean {
     public void setUsers(List<User> users) {
         this.users = users;
     }
-
-    public String selectUser() {
-        
-
-
-
-        //
-        //String teste = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("loginUserSelected");
-
-        //this.selectedUser.setName(teste);
-
-        //this.selectedUser = userDAO.find(this.selectedUser.getName());
-
-        return null;
-    }
-    
 }
