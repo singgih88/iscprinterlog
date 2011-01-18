@@ -10,23 +10,34 @@
         <title>ISC Printerlog System</title>
     </h:head>
     <h:body>
-        <div id="mainContent">
-           <h:form id="mainForm">
-            <p:tabView effect="opacity" >
-                <p:tab title="User" >
-                    <ui:include id="UserSessionIncluce" src="UserSession.xhtml"/>
-                </p:tab>
-                <p:tab title="Printer">
-                    <ui:include id="PrinterSessionIncluce" src="PrinterSession.xhtml"/>
-                </p:tab>
-                <p:tab title="Time">
-                    <ui:include id="TimeSessionIncluce" src="TimeSession.xhtml"/>
-                </p:tab>
-                <p:tab title="Admin">
-                    <ui:include id="TimeSessionIncluce" src="TimeSession.xhtml"/>
-                </p:tab>
-            </p:tabView>
-        </h:form>
+
+        <div id="mainContent" style="z-index: 1; float: left;">
+
+            <h:form id="mainForm">
+                <p:tabView effect="opacity">
+                    <p:tab title="User" >
+                        <ui:include id="UserSessionIncluce" src="UserSession.xhtml"/>
+                    </p:tab>
+                    <p:tab title="Printer">
+                        <ui:include id="PrinterSessionIncluce" src="PrinterSession.xhtml"/>
+                    </p:tab>
+                    <p:tab title="Time">
+                        <ui:include id="TimeSessionIncluce" src="TimeSession.xhtml"/>
+                    </p:tab>
+                    <p:tab title="Admin">
+                        <ui:include id="TimeSessionIncluce" src="AdminSession.xhtml"/>
+                    </p:tab>
+
+                </p:tabView>
+
+            </h:form>
+        </div>
+        <div style="z-index: 2; position: relative; left: -20%; top: 14px;">
+            <h:form id="searchBox">
+                <h:outputText value="Search" style="color: gray; font-family: sans-serif; font-size: large; font-weight: bold;" />
+                <p:autoComplete value="#{usersBean.selectedUser2}" completeMethod="#{usersBean.completeUser}"
+                                var="usr" itemLabel="#{usr.login}" itemValue="#{usr}" converter="userConverter" />
+                </h:form>
         </div>
     </h:body>
 </html>

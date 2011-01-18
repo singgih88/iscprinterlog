@@ -16,19 +16,18 @@ root {
 }
 
 .headerTableTitle {
-    text-align: center;
     font-size: 14px;
     font-weight: bold;
 }
 
 .columnMainTable {
+    width: 100%;
     text-align: center;
     font-family: sans-serif;
-    width: 349px;
     
 }
 
 div#mainContent {
 
-    width: 90%;
+    width: 70%;
 }
