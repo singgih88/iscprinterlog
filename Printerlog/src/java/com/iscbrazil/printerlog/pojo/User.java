@@ -53,11 +53,4 @@ public class User {
     public void setTotalPrint(int totalPrint) {
         this.totalPrint = totalPrint;
     }
-
-    @Override
-    public String toString() {
-        return "User{" + "login=" + login + ";name=" + name + ";category=" + category + ";totalPrint=" + totalPrint + '}';
-    }
-
-    
 }
