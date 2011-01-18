@@ -3,40 +3,38 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.prime.com.tr/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-   
-            <div style="width: 550px; height: 420px">
-                <div id="usersList" style="width: 280px; float: left;">
-                    <h:form id="form1">
-                        <h:outputStylesheet library="css" name="main.css" />
-                        <p:dataTable var="user" value="#{usersBean.users}" paginator="true"
-                                     rows="10" paginatorPosition="bottom" style="text-align: center;" pageLinks="3">
-                            <p:column styleClass="columnMainTable">
-                                <f:facet name="header">
-                                    <h:outputText value="User Login" styleClass="headerTableTitle"/>
-                                </f:facet>
-                                <h:link value="#{user.login}" style="font-size: small; text-align: left; text-transform: capitalize;">
-                                    <f:param id="loginUserSelected" value="#{user.login}" name="loginUserSelected" />
-                                </h:link>
-                            </p:column>
-                            <p:column styleClass="columnMainTable">
-                                <f:facet name="header">
-                                    <h:outputText value="User Total Print" styleClass="headerTableTitle"/>
-                                </f:facet>
-                                <h:outputText value="#{user.totalPrint}" style="font-size: small; text-align: center;"/>
-                            </p:column>
-                        </p:dataTable>
-                    </h:form>
-                </div>
-                <div id="userDetails" style="width: 250px; float: right;">
-                    <h:form id="form2">
-                        <p:panel style="width: 100%; height: 100%">
-                            <f:facet name="header">
-                                <h:outputLabel value="#{usersBean.selectedUser.name}" /><br />
-                                <h:outputLabel value="#{usersBean.selectedUser.category}" style="font-size: small;"/>
-                            </f:facet>
-                        </p:panel>
-                    </h:form>
-                </div>
-            </div>
+    <h:head>
+        <title></title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:dataTable var="usr" value="#{usersBean.users}" rows="10" paginator="true" onselectComplete="dialog.show();"
+                         selection="#{usersBean.selectedUser}" selectionMode="single" update="panel">
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Login"/>
+                    </f:facet>
+                    <h:outputText value="#{usr.login}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Total Print"/>
+                    </f:facet>
+                    <h:outputText value="#{usr.totalPrint}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <br/>
+        <p:dialog widgetVar="dialog" header="User Information" draggable="false" >
+            <h:panelGrid columns="2" id="panel">
+                <h:outputText value="Name:" />
+                <h:outputText value="#{usersBean.selectedUser.name}" />
+                <h:outputText value="Category:" />
+                <h:outputText value="#{usersBean.selectedUser.category}" />
+                <h:outputText value="Total Print:" />
+                <h:outputText value="#{usersBean.selectedUser.totalPrint}" />
+            </h:panelGrid>
+        </p:dialog>
+    </h:body>
 </html>
 

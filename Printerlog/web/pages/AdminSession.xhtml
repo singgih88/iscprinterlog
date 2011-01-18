@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.prime.com.tr/ui">
     <h:head>
         <title>Facelet Title</title>
     </h:head>
@@ -8,8 +9,12 @@
             <h:form>
                 <h:outputStylesheet library="css" name="main.css" />
                 <div>
-                    <h:outputText value="Admin Session is under construction" styleClass="underConstructionText"/>
-                    <h:graphicImage library="images" name="under-construction.jpg" styleClass="underConstructionImg" />
+                    <h:outputLabel value="Search" style="color: gray; font-family: sans-serif; font-size: large; font-weight: bold; float: left;" />
+                    <p:autoComplete value="#{usersBean.selectedUser}" completeMethod="#{usersBean.completeUser}"
+                                    var="usr" itemLabel="#{usr.name}" itemValue="#{usr}" converter="userConverter" />
+                    <h:button value="Submit" style="" >
+                        <f:param value="#{usr.login}" />
+                    </h:button>
                 </div>
             </h:form>
     </h:body>

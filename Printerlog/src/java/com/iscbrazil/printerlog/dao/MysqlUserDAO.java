@@ -61,14 +61,16 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
     public List<User> listAll() {
 
         List<User> users = new ArrayList<User>();
-        String SQL1 = "SELECT `user_login`, `user_printCounter` FROM `printerlog`.`user` ORDER BY `user_printCounter` DESC;";
+        String SQL1 = "SELECT `user_login`, `user_printCounter`, `user_name`, `user_category` FROM `printerlog`.`user` ORDER BY `user_printCounter` DESC;";
 
         try {
             ResultSet res = super.getResultSet(SQL1);
 
             while (res.next()) {
                 User u = new User();
+                u.setName(res.getString(UserName));
                 u.setLogin(res.getString(UserLogin));
+                u.setCategory(res.getString(UserCategory));
                 u.setTotalPrint(Integer.parseInt(res.getString(UserPrintCounter)));
                 users.add(u);
             }
