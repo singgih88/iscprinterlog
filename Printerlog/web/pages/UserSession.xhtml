@@ -1,5 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
@@ -9,34 +7,41 @@
     </h:head>
     <h:body>
         <f:view>
-            <div id="usersList">
+            <div style="width: 700px;">
+            <div id="usersList" style="">
                 <h:form id="form1">
                     <h:outputStylesheet library="css" name="main.css" />
                     <p:dataTable var="user" value="#{usersBean.users}" paginator="true"
-                                 rows="5" paginatorPosition="bottom" width="10px" >
-                        <p:column styleClass="columnMainTable">
+                                 rows="10" paginatorPosition="bottom" style="text-align: center;">
+                        <p:column styleClass="columnMainTable" >
                             <f:facet name="header">
                                 <h:outputText value="User Login" styleClass="headerTableTitle"/>
                             </f:facet>
-                            <h:commandLink action="#{usersBean.selectUser}" value="#{user.login}" style="font-size: small">
+                            <h:link value="#{user.login}" style="font-size: small; text-align: center;">
                                 <f:param id="loginUserSelected" value="#{user.login}" name="loginUserSelected" />
-                            </h:commandLink>
+                            </h:link>
                         </p:column>
                         <p:column styleClass="columnMainTable">
                             <f:facet name="header">
                                 <h:outputText value="User Total Print" styleClass="headerTableTitle"/>
                             </f:facet>
-                            <h:outputText value="#{user.totalPrint}" style="font-size: small"/>
+                            <h:outputText value="#{user.totalPrint}" style="font-size: small; text-align: center;"/>
                         </p:column>
-                    </p:dataTable></h:form> </div>
-
-            <div>
-                <h:form id="form2">
-                    <h:outputText id="selectedUserBox" value="#{usersBean.selectedUser.name}" />
+                    </p:dataTable>
                 </h:form>
             </div>
-                
-           
+            <div id="userDetails" style="width: 50%;">
+                <h:form id="form2">
+                    <p:panel style="width: 100%; height: 100%">
+                        <f:facet name="header">
+                            <h:outputLabel value="#{usersBean.selectedUser.name}" /><br />
+                            <h:outputLabel value="#{usersBean.selectedUser.category}" style="font-size: small;"/>
+                        </f:facet>
+
+                    </p:panel>
+                </h:form>
+            </div>
+            </div>
         </f:view>
     </h:body>
 </html>

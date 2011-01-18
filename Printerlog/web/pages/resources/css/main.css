@@ -5,29 +5,30 @@ root {
 .underConstructionImg {
     width: 500px;
     height: 400px;
-    position: absolute;
     top: 50%;
     left: 50%;
-    margin-top: -200px;
-    margin-left: -250px;
 }
 
 .underConstructionText {
     font-family: sans-serif;
     font-weight: bold;
     font-size: 18px;
-    position: absolute;
-    left: 28%;
-    top: 5%;
 }
 
 .headerTableTitle {
-    
+    text-align: center;
     font-size: 14px;
     font-weight: bold;
 }
 
 .columnMainTable {
+    text-align: center;
     font-family: sans-serif;
-    width: 100px;
+    width: 349px;
+    
+}
+
+div#mainContent {
+
+    width: 90%;
 }
