@@ -9,6 +9,11 @@ import javax.naming.NamingException;
 
 class MysqlUserDAO extends ConnectionPool implements UserDAO {
 
+    private final String UserLogin = "user_login";
+    private final String UserPrintCounter = "user_printCounter";
+    private final String UserName = "user_name";
+    private final String UserCategory = "user_category";
+
     @Override
     public void save(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -30,8 +35,41 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
 
             while (res.next()) {
                 User u = new User();
-                u.setLogin(res.getString("user_login"));
-                u.setTotalPrint(Integer.parseInt(res.getString("user_printCounter")));
+                u.setLogin(res.getString(UserLogin));
+                u.setTotalPrint(Integer.parseInt(res.getString(UserPrintCounter)));
+                users.add(u);
+            }
+            res.close();
+            return users;
+
+        } catch (Exception exc) {
+            System.out.println("SQL error");
+            users.add(null);
+            return users;
+        } finally {
+            try {
+                super.closeConnection();
+            } catch (SQLException ex) {
+                System.out.println("Error closing Mysql connection");
+            }
+        }
+
+
+    }
+
+    @Override
+    public List<User> listAll() {
+
+        List<User> users = new ArrayList<User>();
+        String SQL1 = "SELECT `user_login`, `user_printCounter` FROM `printerlog`.`user` ORDER BY `user_printCounter` DESC;";
+
+        try {
+            ResultSet res = super.getResultSet(SQL1);
+
+            while (res.next()) {
+                User u = new User();
+                u.setLogin(res.getString(UserLogin));
+                u.setTotalPrint(Integer.parseInt(res.getString(UserPrintCounter)));
                 users.add(u);
             }
             res.close();
@@ -66,10 +104,10 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
             if (res.next()) {
 
                 User u = new User();
-                u.setLogin(res.getString("user_login"));
-                u.setTotalPrint(Integer.parseInt(res.getString("user_printCounter")));
-                u.setName(res.getString("user_name"));
-                u.setCategory(res.getString("user_category"));
+                u.setLogin(res.getString(UserLogin));
+                u.setTotalPrint(Integer.parseInt(res.getString(UserPrintCounter)));
+                u.setName(res.getString(UserName));
+                u.setCategory(res.getString(UserCategory));
                 return u;
             }
 
