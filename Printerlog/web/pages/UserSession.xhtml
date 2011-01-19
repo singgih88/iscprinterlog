@@ -7,34 +7,69 @@
         <title></title>
     </h:head>
     <h:body>
-        <h:form>
-            <p:dataTable var="usr" value="#{usersBean.users}" rows="10" paginator="true" onselectComplete="dialog.show();"
-                         selection="#{usersBean.selectedUser}" selectionMode="single" update="panel">
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Login"/>
-                    </f:facet>
-                    <h:outputText value="#{usr.login}" />
-                </p:column>
-                <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Total Print"/>
-                    </f:facet>
-                    <h:outputText value="#{usr.totalPrint}" />
-                </p:column>
-            </p:dataTable>
-        </h:form>
-        <br/>
-        <p:dialog widgetVar="dialog" header="User Information" draggable="false" >
-            <h:panelGrid columns="2" id="panel">
-                <h:outputText value="Name:" />
-                <h:outputText value="#{usersBean.selectedUser.name}" />
-                <h:outputText value="Category:" />
-                <h:outputText value="#{usersBean.selectedUser.category}" />
-                <h:outputText value="Total Print:" />
-                <h:outputText value="#{usersBean.selectedUser.totalPrint}" />
-            </h:panelGrid>
-        </p:dialog>
+        <div style="width: 350px; float: left;">
+            <h:form>
+                <h:outputStylesheet library="css" name="main.css" />
+                <p:dataTable var="usr" value="#{usersBean.users}" rows="12" paginator="true"
+                             onselectComplete="panelInfo.show(); panelOptions.show();"
+                             selection="#{usersBean.selectedUser}" paginatorPosition="bottom"
+                             selectionMode="single" update="p1" pageLinks="5" widgetVar="usersTable" style="text-align: center; " >
+                    <p:column styleClass="columnMainTable">
+                        <f:facet name="header">
+                            <h:outputText value="Login"/>
+                        </f:facet>
+                        <h:outputText value="#{usr.login}" />
+                    </p:column>
+                    <p:column styleClass="columnMainTable">
+                        <f:facet name="header">
+                            <h:outputText value="Total Print"/>
+                        </f:facet>
+                        <h:outputText value="#{usr.totalPrint}" />
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
+        <div style=" float: left; position: relative; left: 13px; width: 400px">
+            <p:panel id="p1" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo">
+                <f:facet name="header">
+                    <h:outputText value="#{usersBean.selectedUser.name}" /><br />
+                    <h:outputText value="#{usersBean.selectedUser.category}" style="font-size: small;"/>
+                </f:facet>
+                <h:outputText value="Total Print: " />
+                <h:outputText value="#{usersBean.selectedUser.totalPrint} sheets" />
+            </p:panel>
+            <br />
+            <p:panel id="p2" style="text-transform: capitalize;" header="Detailment Options" visible="hidden" widgetVar="panelOptions">
+                <p:accordionPanel autoHeight="false" activeIndex="2" >
+                    <p:tab title="Time">
+                        <h:form id="ddPanel">
+                            <h:panelGrid columns="2" style="font-size: small; font-weight: bold; text-align: left; float: left" >
+                                <h:outputLabel value="School Year " />
+                                <h:selectOneMenu value="#{usersBean.schoolYearSelected}" >
+                                    <f:selectItems value="#{usersBean.schoolYears}" var="sy" itemValue="#{sy}" />
+                                </h:selectOneMenu>
+                                <h:outputLabel value="Month " style="text-align: left"/>
+                                <h:selectOneMenu value="#{usersBean.monthSelected}" >
+                                    <f:selectItems value="#{usersBean.loadMonths}" var="m" itemLabel="#{m.monthLabel}" itemValue="#{m.monthValue}"/>
+                                </h:selectOneMenu>
+                            </h:panelGrid>
+                            <p:commandButton actionListener="#{usersBean.dateDetailedData}" value="Submit" 
+                                             style="font-size: small; font-weight: bold; 
+                                                    float: right; height: 28px; width: 80px;
+                                                    position: relative; top: 13px; left: 18px " onclick="panelResult.show();"/>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="Printer">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="" />
+                        </h:panelGrid>
+                    </p:tab>
+                </p:accordionPanel>
+                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="panelResult">
+                    <h:outputText value="#{usersBean.sheetsTimeInterval.toString}" />
+                </p:dialog>
+            </p:panel>
+        </div>
     </h:body>
 </html>
 
