@@ -10,16 +10,41 @@
         <title>ISC Printerlog System</title>
     </h:head>
     <h:body>
-        <div id="mainDiv" style="">
-            <p:layout fullPage="true" >
-                <p:layoutUnit position="top" height="150">
-                <center><h:outputText value="QUEBRANDO PARADIGMAS - PRIMEFACES" style="font-size: 8pt" /></center>
+        <h:outputStylesheet library="css" name="main.css" />
+        <p:layout style="width: 800px; height: 700px; position: absolute; left: 25%;">
+
+            <p:layoutUnit position="top" height="150">
+                <h:outputText value="Printerlog" style="font-size: 16pt"/>
             </p:layoutUnit>
-            <p:layoutUnit position="center" header="Users">
-                <ui:include id="UsersSessionFile" src="UserSession.xhtml" />
+            <p:layoutUnit position="center">
+                <h:form id="for3">
+                    <p:menubar>
+                        <p:submenu>
+                            <f:facet name="label">
+                                <p:menuitem value="User" url="faces/UserSession.xhtml" target="mainFrame"/>
+                            </f:facet>
+                        </p:submenu>
+                        <p:submenu>
+                            <f:facet name="label">
+                                <p:menuitem value="Printer" url="faces/PrinterSession.xhtml" target="mainFrame"/>
+                            </f:facet>
+                        </p:submenu>
+                        <p:submenu>
+                            <f:facet name="label">
+                                <p:menuitem value="Time" url="faces/TimeSession.xhtml" target="mainFrame"/>
+                            </f:facet>
+                        </p:submenu>
+                        <p:submenu>
+                            <f:facet name="label">
+                                <p:menuitem value="Admin" url="faces/AdminSession.xhtml" target="mainFrame"/>
+                            </f:facet>
+                        </p:submenu>
+                    </p:menubar>
+                    <iframe src="faces/UserSession.xhtml" id="mainFrame" scrolling="no" style="width: 100%; height: 100%;"/>
+                </h:form>
             </p:layoutUnit>
+
         </p:layout>
-        </div>
     </h:body>
 </html>
 

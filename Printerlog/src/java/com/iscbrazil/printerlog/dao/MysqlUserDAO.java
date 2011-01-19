@@ -16,6 +16,7 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
 
     @Override
     public void save(User user) {
+        //SQL1 = "SELECT DISTINCT YEAR(`print_date`) FROM `print`;";
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -129,5 +130,71 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
             }
         }
 
+    }
+
+    @Override
+    public List<String> listSchoolYears() {
+        try {
+
+            String SQL1 = "SELECT DISTINCT `print_schoolYear` FROM `print`";
+
+            ResultSet res = super.getResultSet(SQL1);
+            List<String> schoolYears = new ArrayList<String>();
+
+            while (res.next()) {
+                schoolYears.add(res.getString("print_schoolYear"));
+            }
+            return schoolYears;
+
+        } catch (SQLException ex) {
+            return null; //Message reporting that user doesn't exist
+        } catch (NamingException ex) {
+            return null; //Message reporting that user doesn't exist
+        } catch (ClassNotFoundException ex) {
+            return null; //Message reporting that user doesn't exist
+        } finally {
+            try {
+                super.closeConnection();
+            } catch (SQLException ex) {
+                System.out.println("Error closing Mysql connection");
+            }
+        }
+    }
+
+    @Override
+    public String getDetailedDataTime(String schoolYear, int month) {
+
+        if (schoolYear == null || schoolYear.trim().equalsIgnoreCase("")) {
+            return null;
+        }
+
+        String SQL1 = "";
+
+        if (month <= 0 || month > 12) {
+            SQL1 = "select count(`print_page`) as sheets from print where `print_schoolYear` = '" + schoolYear + "' as";
+        } else {
+            SQL1 = "select count(`print_page`) as sheets from print where month(`print_date`) = " + month + " and `print_schoolYear` = '" + schoolYear + "'";
+        }
+
+        try {
+
+            ResultSet res = super.getResultSet(SQL1);
+            String sheets = String.valueOf(res.getInt(1));
+
+            return sheets;
+
+        } catch (SQLException ex) {
+            return null; //Message reporting that user doesn't exist
+        } catch (NamingException ex) {
+            return null; //Message reporting that user doesn't exist
+        } catch (ClassNotFoundException ex) {
+            return null; //Message reporting that user doesn't exist
+        } finally {
+            try {
+                super.closeConnection();
+            } catch (SQLException ex) {
+                System.out.println("Error closing Mysql connection");
+            }
+        }
     }
 }

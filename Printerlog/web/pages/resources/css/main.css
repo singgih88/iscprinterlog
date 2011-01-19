@@ -31,3 +31,7 @@ div#mainContent {
 
     width: 70%;
 }
+
+.yui-skin-sam .yui-layout .yui-layout-hd {
+       border: 0;
+}

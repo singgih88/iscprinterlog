@@ -10,5 +10,7 @@ public interface UserDAO {
     public List<User> listPrints ();
     public List<User> listAll ();
     public User find (String login);
+    public List<String> listSchoolYears();
+    public String getDetailedDataTime(String schoolYear, int month);
 
 }
