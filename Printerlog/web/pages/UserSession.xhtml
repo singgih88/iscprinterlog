@@ -50,13 +50,13 @@
                                 </h:selectOneMenu>
                                 <h:outputLabel value="Month " style="text-align: left"/>
                                 <h:selectOneMenu value="#{usersBean.monthSelected}" >
-                                    <f:selectItems value="#{usersBean.loadMonths}" var="m" itemLabel="#{m.monthLabel}" itemValue="#{m.monthValue}"/>
+                                    <f:selectItems value="#{usersBean.loadMonths}" var="m" itemLabel="#{m.monthLabel}" itemValue="#{m}"/>
                                 </h:selectOneMenu>
                             </h:panelGrid>
-                            <p:commandButton actionListener="#{usersBean.dateDetailedData}" value="Submit" 
+                            <p:commandButton actionListener="#{usersBean.dateDetailedData}" value="Submit"
                                              style="font-size: small; font-weight: bold; 
                                                     float: right; height: 28px; width: 80px;
-                                                    position: relative; top: 13px; left: 18px " onclick="panelResult.show();"/>
+                                                    position: relative; top: 13px; left: 18px " onclick="dialogResult.show();" update="panelResult"/>
                         </h:form>
                     </p:tab>
                     <p:tab title="Printer">
@@ -65,8 +65,11 @@
                         </h:panelGrid>
                     </p:tab>
                 </p:accordionPanel>
-                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="panelResult">
-                    <h:outputText value="#{usersBean.sheetsTimeInterval.toString}" />
+                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="dialogResult">
+                    <h:panelGrid id="panelResult" columns="2" >
+                        <h:outputLabel value="Sheets printed by #{usersBean.selectedUser.name} in " />
+                        <h:outputText value="#{usersBean.sheetsTimeInterval}" />
+                    </h:panelGrid>
                 </p:dialog>
             </p:panel>
         </div>

@@ -7,11 +7,11 @@ import com.iscbrazil.printerlog.pojo.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 
 @ManagedBean(name = "usersBean")
-@RequestScoped
+@SessionScoped
 public class UsersBean {
 
     private List<User> users;
@@ -19,7 +19,7 @@ public class UsersBean {
     private UserDAO userDAO;
     private List<String> schoolYears;
     private String schoolYearSelected;
-    private int monthSelected;
+    private Month monthSelected;
     private List<Month> months;
     private String sheetsTimeInterval;
 
@@ -57,11 +57,11 @@ public class UsersBean {
         this.schoolYears = schoolYears;
     }
 
-    public int getMonthSelected() {
+    public Month getMonthSelected() {
         return monthSelected;
     }
 
-    public void setMonthSelected(int monthSelected) {
+    public void setMonthSelected(Month monthSelected) {
         this.monthSelected = monthSelected;
     }
 
@@ -132,6 +132,6 @@ public class UsersBean {
     }
 
     public void dateDetailedData(ActionEvent event) {
-        this.sheetsTimeInterval = this.userDAO.getDetailedDataTime(schoolYearSelected, monthSelected);
+        this.sheetsTimeInterval = this.userDAO.getDetailedDataTime(schoolYearSelected, monthSelected.getMonthValue());
     }
 }
