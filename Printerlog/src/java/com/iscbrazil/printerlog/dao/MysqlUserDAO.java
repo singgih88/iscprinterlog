@@ -162,7 +162,7 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
     }
 
     @Override
-    public String getDetailedDataTime(String schoolYear, int month) {
+    public String getDetailedDataTime(String schoolYear, int month, String userLogin) {
 
         if (schoolYear == null || schoolYear.trim().equalsIgnoreCase("")) {
             return null;
@@ -171,17 +171,23 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
         String SQL1 = "";
 
         if (month <= 0 || month > 12) {
-            SQL1 = "select count(`print_page`) as sheets from print where `print_schoolYear` = '" + schoolYear + "' as";
+            SQL1 = "select count(`print_page`) as sheets from print where `print_schoolYear` = '" + schoolYear + 
+                   "' and print_login = (SELECT `user_id` FROM `user` WHERE `user_login` = '" + userLogin + "')";
         } else {
-            SQL1 = "select count(`print_page`) as sheets from print where month(`print_date`) = " + month + " and `print_schoolYear` = '" + schoolYear + "'";
+            SQL1 = "select count(`print_page`) as sheets from print where month(`print_date`) = "
+                    + month + " and `print_schoolYear` = '" + schoolYear
+                    + "' and print_login = (SELECT `user_id` FROM `user` WHERE `user_login` = '" + userLogin + "')";
         }
 
         try {
 
             ResultSet res = super.getResultSet(SQL1);
-            String sheets = String.valueOf(res.getInt(1));
-
-            return sheets;
+            String sheets = "";
+            if(res.next()) {
+                sheets = res.getString("sheets");
+                return sheets;
+            }
+            return null;
 
         } catch (SQLException ex) {
             return null; //Message reporting that user doesn't exist

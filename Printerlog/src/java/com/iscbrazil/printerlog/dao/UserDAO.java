@@ -11,6 +11,6 @@ public interface UserDAO {
     public List<User> listAll ();
     public User find (String login);
     public List<String> listSchoolYears();
-    public String getDetailedDataTime(String schoolYear, int month);
+    public String getDetailedDataTime(String schoolYear, int month, String userLogin);
 
 }
