@@ -4,6 +4,7 @@ import com.iscbrazil.printerlog.dao.Factory;
 import com.iscbrazil.printerlog.dao.UserDAO;
 import com.iscbrazil.printerlog.pojo.Month;
 import com.iscbrazil.printerlog.pojo.User;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -12,7 +13,7 @@ import javax.faces.event.ActionEvent;
 
 @ManagedBean(name = "usersBean")
 @SessionScoped
-public class UsersBean {
+public class UsersBean implements Serializable {
 
     private List<User> users;
     private User selectedUser;
@@ -22,15 +23,17 @@ public class UsersBean {
     private Month monthSelected;
     private List<Month> months;
     private String sheetsTimeInterval;
+    private String monthValueSelected;
 
     public UsersBean() {
-        this.selectedUser = new User();
-        this.users = new ArrayList<User>();
         this.userDAO = Factory.createUserDAO();
-        this.schoolYears = new ArrayList<String>();
-        this.months = new ArrayList<Month>();
+        this.users = new ArrayList<User>();
         loadUsers();
+        this.schoolYears = new ArrayList<String>();
         loadSchoolYears();
+        this.months = new ArrayList<Month>();
+        loadMonths();
+        this.selectedUser = new User();
     }
 
     public User getSelectedUser() {
@@ -89,13 +92,21 @@ public class UsersBean {
         this.sheetsTimeInterval = sheetsTimeInterval;
     }
 
+    public String getMonthValueSelected() {
+        return monthValueSelected;
+    }
+
+    public void setMonthValueSelected(String monthValueSelected) {
+        this.monthValueSelected = monthValueSelected;
+    }
+
     public List<User> completeUser(String query) {
         this.users = this.userDAO.listAll();
 
         List<User> suggestions = new ArrayList<User>();
 
-        for(User u : this.users) {
-            if(u.getName().startsWith(query)) {
+        for (User u : this.users) {
+            if (u.getName().startsWith(query)) {
                 suggestions.add(u);
             }
         }
@@ -111,10 +122,11 @@ public class UsersBean {
 
     }
 
-    public List<Month> getLoadMonths() {
-        
+    private List<Month> loadMonths() {
+
         this.months = new ArrayList<Month>();
-        
+
+        this.months.add(new Month("--//--", 0));
         this.months.add(new Month("January", 1));
         this.months.add(new Month("February", 2));
         this.months.add(new Month("March", 3));
@@ -132,6 +144,12 @@ public class UsersBean {
     }
 
     public void dateDetailedData(ActionEvent event) {
-        this.sheetsTimeInterval = this.userDAO.getDetailedDataTime(schoolYearSelected, monthSelected.getMonthValue());
+        this.monthSelected = new Month();
+        for (Month m : months) {
+            if (monthValueSelected.equalsIgnoreCase(String.valueOf(m.getMonthValue())) && !(monthValueSelected.equals("0"))) {
+                monthSelected.setMonthLabel(m.monthLabel);
+            }
+        }
+        this.sheetsTimeInterval = this.userDAO.getDetailedDataTime(schoolYearSelected, Integer.parseInt(monthValueSelected), selectedUser.getLogin());
     }
 }

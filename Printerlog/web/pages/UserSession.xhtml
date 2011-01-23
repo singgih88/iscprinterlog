@@ -13,7 +13,7 @@
                 <p:dataTable var="usr" value="#{usersBean.users}" rows="12" paginator="true"
                              onselectComplete="panelInfo.show(); panelOptions.show();"
                              selection="#{usersBean.selectedUser}" paginatorPosition="bottom"
-                             selectionMode="single" update="p1" pageLinks="5" widgetVar="usersTable" style="text-align: center; " >
+                             selectionMode="single" update="p1 p2" pageLinks="5" widgetVar="usersTable" style="text-align: center; " >
                     <p:column styleClass="columnMainTable">
                         <f:facet name="header">
                             <h:outputText value="Login"/>
@@ -39,18 +39,18 @@
                 <h:outputText value="#{usersBean.selectedUser.totalPrint} sheets" />
             </p:panel>
             <br />
-            <p:panel id="p2" style="text-transform: capitalize;" header="Detailment Options" visible="hidden" widgetVar="panelOptions">
+            <p:panel id="p2" header="Detailment Options" visible="hidden" widgetVar="panelOptions">
                 <p:accordionPanel autoHeight="false" activeIndex="2" >
                     <p:tab title="Time">
                         <h:form id="ddPanel">
-                            <h:panelGrid columns="2" style="font-size: small; font-weight: bold; text-align: left; float: left" >
+                            <h:panelGrid columns="2" style="font-size: small; font-weight: bold; text-align: left; float: left; text-transform: capitalize;" >
                                 <h:outputLabel value="School Year " />
                                 <h:selectOneMenu value="#{usersBean.schoolYearSelected}" >
                                     <f:selectItems value="#{usersBean.schoolYears}" var="sy" itemValue="#{sy}" />
                                 </h:selectOneMenu>
                                 <h:outputLabel value="Month " style="text-align: left"/>
-                                <h:selectOneMenu value="#{usersBean.monthSelected}" >
-                                    <f:selectItems value="#{usersBean.loadMonths}" var="m" itemLabel="#{m.monthLabel}" itemValue="#{m}"/>
+                                <h:selectOneMenu value="#{usersBean.monthValueSelected}" >
+                                    <f:selectItems value="#{usersBean.months}" var="m" itemLabel="#{m.monthLabel}" itemValue="#{m.monthValue}"/>
                                 </h:selectOneMenu>
                             </h:panelGrid>
                             <p:commandButton actionListener="#{usersBean.dateDetailedData}" value="Submit"
@@ -65,10 +65,12 @@
                         </h:panelGrid>
                     </p:tab>
                 </p:accordionPanel>
-                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="dialogResult">
-                    <h:panelGrid id="panelResult" columns="2" >
-                        <h:outputLabel value="Sheets printed by #{usersBean.selectedUser.name} in " />
-                        <h:outputText value="#{usersBean.sheetsTimeInterval}" />
+                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="dialogResult" width="370">
+                    <h:panelGrid id="panelResult" >
+                        <h:outputText value="#{usersBean.sheetsTimeInterval} sheets"/>
+                            <h:outputLabel value="Printed by #{usersBean.selectedUser.name}
+                                       in #{usersBean.monthSelected.monthLabel}
+                                       #{usersBean.schoolYearSelected}" style="font-size: small;"/>
                     </h:panelGrid>
                 </p:dialog>
             </p:panel>
