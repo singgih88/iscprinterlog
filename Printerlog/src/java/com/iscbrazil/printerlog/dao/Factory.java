@@ -6,4 +6,8 @@ public class Factory {
         return new MysqlUserDAO();
     }
 
+    public static PrinterDAO createPrinterDAO() {
+        return new MysqlPrinterDAO();
+    }
+
 }

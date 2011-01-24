@@ -13,6 +13,7 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
     private final String UserPrintCounter = "user_printCounter";
     private final String UserName = "user_name";
     private final String UserCategory = "user_category";
+    private final String UserID = "user_id";
 
     @Override
     public void save(User user) {
@@ -25,8 +26,8 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public List<User> listPrints() {
+/*    @Override
+    public List<User> listUsersPrints() {
 
         List<User> users = new ArrayList<User>();
         String SQL1 = "SELECT `user_login`, `user_printCounter` FROM `printerlog`.`user` ORDER BY `user_printCounter` DESC;";
@@ -56,19 +57,20 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
         }
 
 
-    }
+    }*/
 
     @Override
     public List<User> listAll() {
 
         List<User> users = new ArrayList<User>();
-        String SQL1 = "SELECT `user_login`, `user_printCounter`, `user_name`, `user_category` FROM `printerlog`.`user` ORDER BY `user_printCounter` DESC;";
+        String SQL1 = "SELECT `user_id`, `user_login`, `user_printCounter`, `user_name`, `user_category` FROM `printerlog`.`user` ORDER BY `user_printCounter` DESC;";
 
         try {
             ResultSet res = super.getResultSet(SQL1);
 
             while (res.next()) {
                 User u = new User();
+                u.setId(Integer.parseInt(res.getString(UserID)));
                 u.setName(res.getString(UserName));
                 u.setLogin(res.getString(UserLogin));
                 u.setCategory(res.getString(UserCategory));
@@ -164,9 +166,9 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
     @Override
     public String getDetailedDataTime(String schoolYear, int month, String userLogin) {
 
-        if (schoolYear == null || schoolYear.trim().equalsIgnoreCase("")) {
+        if (schoolYear == null || schoolYear.trim().equalsIgnoreCase("")) 
             return null;
-        }
+        
 
         String SQL1 = "";
 
@@ -181,6 +183,39 @@ class MysqlUserDAO extends ConnectionPool implements UserDAO {
 
         try {
 
+            ResultSet res = super.getResultSet(SQL1);
+            String sheets = "";
+            if(res.next()) {
+                sheets = res.getString("sheets");
+                return sheets;
+            }
+            return null;
+
+        } catch (SQLException ex) {
+            return null; //Message reporting that user doesn't exist
+        } catch (NamingException ex) {
+            return null; //Message reporting that user doesn't exist
+        } catch (ClassNotFoundException ex) {
+            return null; //Message reporting that user doesn't exist
+        } finally {
+            try {
+                super.closeConnection();
+            } catch (SQLException ex) {
+                System.out.println("Error closing Mysql connection");
+            }
+        }
+    }
+
+    @Override
+    public String getDetailedDataPrinter(String printerName, String userLogin) {
+        if(printerName.trim().equalsIgnoreCase("") || printerName == null)
+            return null;
+
+        String SQL1 = "select count(`print_page`) as sheets from `print` where "
+                      + "`print_printer` = (SELECT `printer_id` FROM `printer` WHERE `printer_name` = '" + printerName + "') and "
+                      + "`print_login` = (SELECT `user_id` FROM `user` WHERE `user_login` = '" + userLogin + "')";
+
+        try {
             ResultSet res = super.getResultSet(SQL1);
             String sheets = "";
             if(res.next()) {

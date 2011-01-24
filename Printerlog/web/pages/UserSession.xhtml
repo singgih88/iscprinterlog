@@ -54,23 +54,39 @@
                                 </h:selectOneMenu>
                             </h:panelGrid>
                             <p:commandButton actionListener="#{usersBean.dateDetailedData}" value="Submit"
-                                             style="font-size: small; font-weight: bold; 
-                                                    float: right; height: 28px; width: 80px;
-                                                    position: relative; top: 13px; left: 18px " onclick="dialogResult.show();" update="panelResult"/>
+                                             style="font-size: small; font-weight: bold;
+                                             float: right; height: 28px; width: 80px;
+                                             position: relative; top: 13px; left: 18px " onclick="dialogTimeResult.show();" update="panelTimeResult"/>
                         </h:form>
                     </p:tab>
                     <p:tab title="Printer">
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <h:outputText value="" />
-                        </h:panelGrid>
+                        <h:form id="dpPanel">
+                            <h:panelGrid style="font-size: small; font-weight: bold; text-align: left; float: left; text-transform: capitalize;" >
+                                <h:outputText value="Printer" />
+                                <h:selectOneMenu value="#{usersBean.printerIdSelected}" >
+                                    <f:selectItems value="#{usersBean.printers}" var="prt" itemLabel="#{prt.printerPlace}" itemValue="#{prt.printerID}" />
+                                </h:selectOneMenu>
+                            </h:panelGrid>
+                            <p:commandButton actionListener="#{usersBean.printerDetailedData}" value="Submit"
+                                             style="font-size: small; font-weight: bold;
+                                             float: right; height: 28px; width: 80px;
+                                             position: relative; top: 13px; left: 18px " onclick="dialogPrinterResult.show();" update="panelPrinterResult"/>
+                        </h:form>
                     </p:tab>
                 </p:accordionPanel>
-                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="dialogResult" width="370">
-                    <h:panelGrid id="panelResult" >
+                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="dialogTimeResult" width="370">
+                    <h:panelGrid id="panelTimeResult" >
                         <h:outputText value="#{usersBean.sheetsTimeInterval} sheets"/>
-                            <h:outputLabel value="Printed by #{usersBean.selectedUser.name}
+                        <h:outputLabel value="Printed by #{usersBean.selectedUser.name}
                                        in #{usersBean.monthSelected.monthLabel}
                                        #{usersBean.schoolYearSelected}" style="font-size: small;"/>
+                    </h:panelGrid>
+                </p:dialog>
+                <p:dialog header="Result" modal="true" showEffect="" hideEffect="" widgetVar="dialogPrinterResult" width="460">
+                    <h:panelGrid id="panelPrinterResult" >
+                        <h:outputText value="#{usersBean.sheetsPrinter} sheets"/>
+                        <h:outputLabel value="Printed by #{usersBean.selectedUser.name}
+                                       using the #{usersBean.printerSelected.printerPlace} printer" style="font-size: small;"/>
                     </h:panelGrid>
                 </p:dialog>
             </p:panel>
