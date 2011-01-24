@@ -1,9 +1,9 @@
-package com.iscbrazil.printerlog.model.factory;
+package model.factory;
 
-import com.iscbrazil.printerlog.model.interfaces.UserDAO;
-import com.iscbrazil.printerlog.model.interfaces.PrinterDAO;
-import com.iscbrazil.printerlog.model.mysql.MysqlPrinterDAO;
-import com.iscbrazil.printerlog.model.mysql.MysqlUserDAO;
+import model.interfaces.UserDAO;
+import model.interfaces.PrinterDAO;
+import model.mysql.MysqlPrinterDAO;
+import model.mysql.MysqlUserDAO;
 
 public class Factory {
 

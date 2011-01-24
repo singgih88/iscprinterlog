@@ -1,11 +1,11 @@
-package com.iscbrazil.printerlog.controller.backbean;
+package controller.backbean;
 
-import com.iscbrazil.printerlog.model.factory.Factory;
-import com.iscbrazil.printerlog.model.interfaces.PrinterDAO;
-import com.iscbrazil.printerlog.model.interfaces.UserDAO;
-import com.iscbrazil.printerlog.controller.pojo.Month;
-import com.iscbrazil.printerlog.controller.pojo.Printer;
-import com.iscbrazil.printerlog.controller.pojo.User;
+import model.factory.Factory;
+import model.interfaces.PrinterDAO;
+import model.interfaces.UserDAO;
+import controller.pojo.Month;
+import controller.pojo.Printer;
+import controller.pojo.User;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -194,17 +194,17 @@ public class UsersBean implements Serializable {
                 this.monthSelected = m;
             }
         }
-        this.sheetsTimeInterval = this.userDAO.getDetailedDataTime(schoolYearSelected, Integer.parseInt(monthValueSelected), selectedUser.getLogin());
+        this.sheetsTimeInterval = this.userDAO.getDetailedDataTime(this.schoolYearSelected, this.monthSelected.getMonthValue(), this.selectedUser.getLogin());
     }
 
-    public void  printerDetailedData(ActionEvent event) {
+    public void printerDetailedData(ActionEvent event) {
         this.printerSelected = new Printer();
         for (Printer p : this.printers) {
             if(this.printerIdSelected.equalsIgnoreCase(String.valueOf(p.getPrinterID()))) {
                 this.printerSelected = p;
             }
         }
-        this.sheetsPrinter = this.userDAO.getDetailedDataPrinter(printerSelected.getPrinterName(), selectedUser.getLogin());
+        this.sheetsPrinter = this.userDAO.getDetailedDataPrinter(this.printerSelected.getPrinterName(), this.selectedUser.getLogin());
     }
 
 }

@@ -1,6 +1,6 @@
-package com.iscbrazil.printerlog.model.interfaces;
+package model.interfaces;
 
-import com.iscbrazil.printerlog.controller.pojo.User;
+import controller.pojo.User;
 import java.util.List;
 
 public interface UserDAO {

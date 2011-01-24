@@ -1,4 +1,4 @@
-package com.iscbrazil.printerlog.controller.pojo;
+package  controller.pojo;
 
 public class Printer {
 

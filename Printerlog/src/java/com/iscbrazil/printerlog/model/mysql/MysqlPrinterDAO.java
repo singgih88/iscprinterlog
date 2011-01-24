@@ -1,8 +1,8 @@
-package com.iscbrazil.printerlog.model.mysql;
+package model.mysql;
 
-import com.iscbrazil.printerlog.model.connectionPool.ConnectionPool;
-import com.iscbrazil.printerlog.model.interfaces.PrinterDAO;
-import com.iscbrazil.printerlog.controller.pojo.Printer;
+import model.connectionPool.ConnectionPool;
+import model.interfaces.PrinterDAO;
+import controller.pojo.Printer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

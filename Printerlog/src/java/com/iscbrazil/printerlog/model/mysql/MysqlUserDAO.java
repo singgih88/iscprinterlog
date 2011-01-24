@@ -1,8 +1,8 @@
-package com.iscbrazil.printerlog.model.mysql;
+package model.mysql;
 
-import com.iscbrazil.printerlog.model.connectionPool.ConnectionPool;
-import com.iscbrazil.printerlog.model.interfaces.UserDAO;
-import com.iscbrazil.printerlog.controller.pojo.User;
+import model.connectionPool.ConnectionPool;
+import model.interfaces.UserDAO;
+import controller.pojo.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,39 +27,6 @@ public class MysqlUserDAO extends ConnectionPool implements UserDAO {
     public void delete(User user) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-/*    @Override
-    public List<User> listUsersPrints() {
-
-        List<User> users = new ArrayList<User>();
-        String SQL1 = "SELECT `user_login`, `user_printCounter` FROM `printerlog`.`user` ORDER BY `user_printCounter` DESC;";
-
-        try {
-            ResultSet res = super.getResultSet(SQL1);
-
-            while (res.next()) {
-                User u = new User();
-                u.setLogin(res.getString(UserLogin));
-                u.setTotalPrint(Integer.parseInt(res.getString(UserPrintCounter)));
-                users.add(u);
-            }
-            res.close();
-            return users;
-
-        } catch (Exception exc) {
-            System.out.println("SQL error");
-            users.add(null);
-            return users;
-        } finally {
-            try {
-                super.closeConnection();
-            } catch (SQLException ex) {
-                System.out.println("Error closing Mysql connection");
-            }
-        }
-
-
-    }*/
 
     @Override
     public List<User> listAll() {
@@ -93,8 +60,6 @@ public class MysqlUserDAO extends ConnectionPool implements UserDAO {
                 System.out.println("Error closing Mysql connection");
             }
         }
-
-
     }
 
     @Override

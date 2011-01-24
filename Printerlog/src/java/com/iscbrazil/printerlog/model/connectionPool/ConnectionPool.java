@@ -1,4 +1,4 @@
-package com.iscbrazil.printerlog.model.connectionPool;
+package  model.connectionPool;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
