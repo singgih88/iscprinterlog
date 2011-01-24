@@ -6,12 +6,14 @@ public class User {
     private String name;
     private String category;
     private int totalPrint;
+    private int id;
 
-    public User(String login, String name, String category, int totalPrint) {
+    public User(String login, String name, String category, int totalPrint, int id) {
         this.login = login;
         this.name = name;
         this.category = category;
         this.totalPrint = totalPrint;
+        this.id = id;
     }
 
     public User() {
@@ -20,6 +22,14 @@ public class User {
 
     public User(String login) {
         this.login = login;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getCategory() {

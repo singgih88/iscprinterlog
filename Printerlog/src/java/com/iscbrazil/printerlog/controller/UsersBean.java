@@ -1,8 +1,10 @@
 package com.iscbrazil.printerlog.controller;
 
 import com.iscbrazil.printerlog.dao.Factory;
+import com.iscbrazil.printerlog.dao.PrinterDAO;
 import com.iscbrazil.printerlog.dao.UserDAO;
 import com.iscbrazil.printerlog.pojo.Month;
+import com.iscbrazil.printerlog.pojo.Printer;
 import com.iscbrazil.printerlog.pojo.User;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,18 +17,24 @@ import javax.faces.event.ActionEvent;
 @SessionScoped
 public class UsersBean implements Serializable {
 
-    private List<User> users;
-    private User selectedUser;
     private UserDAO userDAO;
+    private PrinterDAO printerDAO;
+    private User selectedUser;
+    private Month monthSelected;
+    private Printer printerSelected;
+    private List<User> users;
+    private List<Printer> printers;
+    private List<Month> months;
     private List<String> schoolYears;
     private String schoolYearSelected;
-    private Month monthSelected;
-    private List<Month> months;
     private String sheetsTimeInterval;
+    private String sheetsPrinter;
     private String monthValueSelected;
+    private String printerIdSelected;
 
     public UsersBean() {
         this.userDAO = Factory.createUserDAO();
+        this.printerDAO = Factory.createPrinterDAO();
         this.users = new ArrayList<User>();
         loadUsers();
         this.schoolYears = new ArrayList<String>();
@@ -34,6 +42,8 @@ public class UsersBean implements Serializable {
         this.months = new ArrayList<Month>();
         loadMonths();
         this.selectedUser = new User();
+        this.printers = new ArrayList<Printer>();
+        loadPrinters();
     }
 
     public User getSelectedUser() {
@@ -100,6 +110,38 @@ public class UsersBean implements Serializable {
         this.monthValueSelected = monthValueSelected;
     }
 
+    public Printer getPrinterSelected() {
+        return printerSelected;
+    }
+
+    public void setPrinterSelected(Printer printerSelected) {
+        this.printerSelected = printerSelected;
+    }
+
+    public List<Printer> getPrinters() {
+        return printers;
+    }
+
+    public void setPrinters(List<Printer> printers) {
+        this.printers = printers;
+    }
+
+    public String getPrinterIdSelected() {
+        return printerIdSelected;
+    }
+
+    public void setPrinterIdSelected(String printerIdSelected) {
+        this.printerIdSelected = printerIdSelected;
+    }
+
+    public String getSheetsPrinter() {
+        return sheetsPrinter;
+    }
+
+    public void setSheetsPrinter(String sheetsPrinter) {
+        this.sheetsPrinter = sheetsPrinter;
+    }
+
     public List<User> completeUser(String query) {
         this.users = this.userDAO.listAll();
 
@@ -122,7 +164,7 @@ public class UsersBean implements Serializable {
 
     }
 
-    private List<Month> loadMonths() {
+    private void loadMonths() {
 
         this.months = new ArrayList<Month>();
 
@@ -139,17 +181,30 @@ public class UsersBean implements Serializable {
         this.months.add(new Month("October", 10));
         this.months.add(new Month("November", 11));
         this.months.add(new Month("December", 12));
+    }
 
-        return this.months;
+    private void loadPrinters() {
+        this.printers = this.printerDAO.listAll();
     }
 
     public void dateDetailedData(ActionEvent event) {
         this.monthSelected = new Month();
-        for (Month m : months) {
-            if (monthValueSelected.equalsIgnoreCase(String.valueOf(m.getMonthValue())) && !(monthValueSelected.equals("0"))) {
-                monthSelected.setMonthLabel(m.monthLabel);
+        for (Month m : this.months) {
+            if (this.monthValueSelected.equalsIgnoreCase(String.valueOf(m.getMonthValue())) && !(this.monthValueSelected.equals("0"))) {
+                this.monthSelected = m;
             }
         }
         this.sheetsTimeInterval = this.userDAO.getDetailedDataTime(schoolYearSelected, Integer.parseInt(monthValueSelected), selectedUser.getLogin());
     }
+
+    public void  printerDetailedData(ActionEvent event) {
+        this.printerSelected = new Printer();
+        for (Printer p : this.printers) {
+            if(this.printerIdSelected.equalsIgnoreCase(String.valueOf(p.getPrinterID()))) {
+                this.printerSelected = p;
+            }
+        }
+        this.sheetsPrinter = this.userDAO.getDetailedDataPrinter(printerSelected.getPrinterName(), selectedUser.getLogin());
+    }
+
 }
