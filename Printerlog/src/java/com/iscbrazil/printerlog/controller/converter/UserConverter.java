@@ -1,8 +1,8 @@
-package com.iscbrazil.printerlog.controller.converter;
+package  controller.converter;
 
-import com.iscbrazil.printerlog.model.factory.Factory;
-import com.iscbrazil.printerlog.model.interfaces.UserDAO;
-import com.iscbrazil.printerlog.controller.pojo.User;
+import  model.factory.Factory;
+import  model.interfaces.UserDAO;
+import  controller.pojo.User;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;

@@ -1,4 +1,4 @@
-package com.iscbrazil.printerlog.controller.backbean;
+package  controller.backbean;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
