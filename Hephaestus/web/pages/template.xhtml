@@ -9,7 +9,7 @@
     </h:head>
     <h:body>
         <h:outputStylesheet library="css" name="main.css" />
-        <h:form>
+        <h:form id="formMaster">
             <p:layout>
                 <p:layoutUnit position="top" height="150" >
                     <h:form>
@@ -26,7 +26,7 @@
                     </h:form>
                 </p:layoutUnit>
                 <p:layoutUnit position="center">
-                    <h:form id="for3">
+                    <h:form id="forContent">
                         <ui:insert id="mainContent" name="mainContent">Here is all the site content</ui:insert>
                     </h:form>
                 </p:layoutUnit>
