@@ -45,6 +45,14 @@ public class PrinterUserBean {
         return results;
     }
 
+    public void bindUserSelected() {
+        for(PrinterUser u : this.users) {
+            if(u.getName().equalsIgnoreCase(this.userComplete)) {
+                this.userSelected = u;
+            }
+        }
+    }
+
     public List<PrinterUser> getUsers() {
         return users;
     }
