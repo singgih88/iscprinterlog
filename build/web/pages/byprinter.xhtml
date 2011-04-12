@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="./template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ui:define name="mainContent">
+        <div style="float: left;">
+            <p:dataTable var="prt" value="#{printerBean.indexedPrinters}" rows="15" paginator="true"
+                         selection="#{printerBean.printerSelected}" selectionMode="single" update="p1_pt"
+                         onselectComplete="panelInfo_pt.show();" widgetVar="printersTable"
+                         paginatorPosition="bottom" pageLinks="5" style="text-align: center; " >
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Name"/>
+                    </f:facet>
+                    <h:outputText value="#{prt.name}" />
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Total Print"/>
+                    </f:facet>
+                    <h:outputText value="#{prt.counter}" />
+                </p:column>
+            </p:dataTable>
+        </div>
+
+        <div style=" float: left; position: relative; left: 13px; width: 410px">
+            <p:panel id="p1_pt" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo_pt">
+                <f:facet name="header">
+                    <h:outputText value="#{printerBean.printerSelected.name}" /><br />
+                    <h:outputText value="#{printerBean.printerSelected.place}" style="font-size: smaller;"/>
+                </f:facet>
+                <h:outputText value="Total Print: " />
+                <h:outputText value="#{printerBean.printerSelected.counter} sheets" />
+            </p:panel>
+            <br />
+        </div>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,73 @@
+/* 
+    Document   : main
+    Created on : Apr 8, 2011, 3:32:39 PM
+    Author     : edilson.ales
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+div#navbar2 {
+    height: 30px;
+    width: 100%;
+    text-align: right;
+    border-top: solid #000 1px;
+    border-bottom: solid #000 1px;
+    background-color: #336699;
+    position: absolute;
+    bottom: -0px;
+}
+div#navbar2 ul {
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+    color: #FFF;
+    line-height: 30px;
+    white-space: nowrap;
+}
+div#navbar2 li {
+    list-style-type: none;
+    display: inline;
+}
+div#navbar2 li a {
+    text-decoration: none;
+    padding: 7px 10px;
+    color: #FFF;
+}
+div#navbar2 lia:link {
+    color: #FFF;
+}
+div#navbar2 lia:visited {
+    color: #CCC;
+}
+div#navbar2 lia:hover {
+    font-weight: bold;
+    color: #FFF;
+    background-color: #3366FF;
+}
+
+.ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
+        border: none;
+}
+
+.ui-layout {
+    width: 800px;
+    height: 700px;
+    position: absolute;
+    left: 25%;
+}
+
+.ui-growl {
+/*    left: 45%;*/
+}
+
+.ui-datatable-data, .ui-datatable {
+    width: 369px;
+}
+
+.ui-datatable-liner {
+    width: 160px;
+}
+
+body {
+    font-size: 8pt;
+}

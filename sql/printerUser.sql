@@ -1,0 +1,15 @@
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1976','Eric Mathews','Eric Mathews','faculty');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1509','Branden Flores','Branden Flores','student');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1272','Ulric Gilliam','Ulric Gilliam','faculty');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1008','Sean Hammond','Sean Hammond','staff');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1328','Duncan Jackson','Duncan Jackson','student');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1552','Bevis James','Bevis James','faculty');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1484','Griffin Delgado','Griffin Delgado','student');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1196','Kasimir Bender','Kasimir Bender','faculty');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1379','Phelan Silva','Phelan Silva','staff');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1477','Norman Winters','Norman Winters','faculty');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1061','Cedric Whitehead','Cedric Whitehead','student');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1633','Axel Macdonald','Axel Macdonald','student');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1449','Kenyon Wagner','Kenyon Wagner','faculty');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1872','Talon Cooper','Talon Cooper','staff');
+INSERT INTO `printeruser` (`counter`,`name`,`login`,`category`) VALUES ('1123','Dylan Camacho','Dylan Camacho','staff');
