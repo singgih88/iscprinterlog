@@ -8,7 +8,7 @@
         <div style="float: left;">
             <p:dataTable var="usr" value="#{printerUserBean.printerUsers}" rows="15" paginator="true"
                          selection="#{printerUserBean.userSelected}" selectionMode="single" update="formInfo:p1"
-                         onselectComplete="formMaster:formContent:formInfo:panelInfo.show();" widgetVar="usersTable"
+                         onselectComplete="formInfo:panelInfo.show();" widgetVar="usersTable"
                          paginatorPosition="bottom" pageLinks="5" style="text-align: center; " >
                 <p:column>
                     <f:facet name="header">
@@ -26,7 +26,7 @@
         </div>
         <h:form id="formInfo">
             <div style=" float: left; position: relative; left: 13px; top: 3px; width: 361px;">
-                <p:panel id="p2" style="text-transform: capitalize; z-index: 100;" >
+                <p:panel id="p2" style="text-transform: capitalize;" >
                     <h:outputLabel value="Serch Users: " for="search-users"/>
                     <p:autoComplete id="search-users" value="#{printerUserBean.userComplete}"
                                     completeMethod="#{printerUserBean.completePrinterUsers}" />
