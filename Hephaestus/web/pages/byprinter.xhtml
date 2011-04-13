@@ -6,7 +6,7 @@
     
     <ui:define name="mainContent">
         <div style="float: left;">
-            <p:dataTable var="prt" value="#{printerBean.indexedPrinters}" rows="15" paginator="true"
+            <p:dataTable var="prt" value="#{printerBean.allPrinters}" rows="15" paginator="true"
                          selection="#{printerBean.printerSelected}" selectionMode="single" update="p1_pt"
                          onselectComplete="panelInfo_pt.show();" widgetVar="printersTable"
                          paginatorPosition="bottom" pageLinks="5" style="text-align: center; " >
