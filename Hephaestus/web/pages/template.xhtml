@@ -3,34 +3,37 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.prime.com.tr/ui">
-    <h:head>
-        <title>ISC Printer Log</title>
-    </h:head>
-    <h:body>
-        <h:outputStylesheet library="css" name="main.css" />
-        <h:form id="formMaster">
-            <p:layout>
-                <p:layoutUnit position="top" height="150" >
-                    <h:form>
-                        <p:growl />
-                        <h:outputText value="ISC Printer Log" style="font-size: 16pt"/>
-                        <div id="navbar2">
-                            <ul>
-                                <li><a href="index.xhtml">User</a></li>
-                                <li><a href="bytime.xhtml">Time</a></li>
-                                <li><a href="byprinter.xhtml">Printer</a></li>
-                                <li><a href="admin.xhtml">Admin</a></li>
-                            </ul>
-                        </div>
-                    </h:form>
-                </p:layoutUnit>
-                <p:layoutUnit position="center">
-                    <h:form id="forContent">
-                        <ui:insert id="mainContent" name="mainContent">Here is all the site content</ui:insert>
-                    </h:form>
-                </p:layoutUnit>
-            </p:layout>
-        </h:form>
-    </h:body>
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:view contentType="text/html">
+        <h:head>
+            <title>ISC Printer Log</title>
+        </h:head>
+        <h:body>
+            <h:outputStylesheet library="css" name="main.css" />
+            <h:form id="formMaster">
+                <p:layout>
+                    <p:layoutUnit position="top" height="150" >
+                        <h:form>
+                            <p:growl id="growlMsg" />
+                            <h:outputText value="ISC Printer Log" style="font-size: 16pt"/>
+                            <div id="navbar2">
+                                <ul>
+                                    <li><a href="index.xhtml">User</a></li>
+                                    <li><a href="bytime.xhtml">Time</a></li>
+                                    <li><a href="byprinter.xhtml">Printer</a></li>
+                                    <li><a href="admin.xhtml">Admin</a></li>
+                                </ul>
+                            </div>
+                        </h:form>
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        <h:form id="forContent">
+                            <ui:insert id="mainContent" name="mainContent">Here is all the site content</ui:insert>
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>
+            </h:form>
+        </h:body>
+    </f:view>
 </html>

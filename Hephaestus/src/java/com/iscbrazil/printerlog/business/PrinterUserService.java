@@ -6,7 +6,7 @@ import com.iscbrazil.printerlog.model.PrinterUser;
 import java.util.List;
 
 /**
- * @version 2011.APR.12.01
+ * @version 2011.APR.13.01
  * @author edilson.ales
  */
 public class PrinterUserService {
