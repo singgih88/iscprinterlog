@@ -4,7 +4,8 @@
                 xmlns:h="http://java.sun.com/jsf/html" xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.prime.com.tr/ui">
 
-    <ui:define name="mainContent">
-        <h:commandButton value="Ok" action="#{adminBean.aefhaeth}" />
+    <ui:define name="mainContent" id="adminComponet">
+        <p:fileUpload id="up1" fileUploadListener="#{adminBean.handleFileUpload}" allowTypes="*.txt;" description="*.txt" sizeLimit="512000" update="t2" />
+        <h:outputText id="t2" value="#{adminBean.lastFileUploaded}" />
     </ui:define>
 </ui:composition>
