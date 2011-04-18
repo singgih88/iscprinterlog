@@ -14,5 +14,10 @@ public class HibernatePrinterUserDAO extends HibernateGenericDAO<PrinterUser> im
         super(session);
     }
 
+    @Override
+    public PrinterUser getByLogin(String login) {
+        return (PrinterUser) this.getSession().get(PrinterUser.class, "login");
+    }
+
 
 }

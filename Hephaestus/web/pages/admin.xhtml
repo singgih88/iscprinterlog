@@ -5,9 +5,11 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <ui:define name="mainContent" id="adminComponet">
-        <h:form enctype="text/plain">
+        
             <p:fileUpload id="up1" fileUploadListener="#{adminBean.handleFileUpload}" allowTypes="*.txt;" description="*.txt" sizeLimit="512000" update="t2" />
-            <h:outputText id="t2" value="#{adminBean.lastFileUploaded}" />
-        </h:form>
+            <p:dataList id="t2" var="line_" value="#{adminBean.lines}" itemType="disc">
+                #{line_.IP}
+            </p:dataList>
+        
     </ui:define>
 </ui:composition>
