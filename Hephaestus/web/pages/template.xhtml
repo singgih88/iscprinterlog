@@ -10,8 +10,9 @@
             <title>ISC Printer Log</title>
         </h:head>
         <h:body>
+            <h:outputScript library="js" name="jquery-1.5.2.js" />
             <h:outputStylesheet library="css" name="main.css" />
-            <h:form id="formMaster">
+            <h:form id="formMaster" enctype="multipart/form-data">
                 <p:layout>
                     <p:layoutUnit position="top" height="150" >
                         <h:form>
@@ -28,7 +29,7 @@
                         </h:form>
                     </p:layoutUnit>
                     <p:layoutUnit position="center">
-                        <h:form id="forContent">
+                        <h:form id="forContent" enctype="multipart/form-data">
                             <ui:insert id="mainContent" name="mainContent">Here is all the site content</ui:insert>
                         </h:form>
                     </p:layoutUnit>

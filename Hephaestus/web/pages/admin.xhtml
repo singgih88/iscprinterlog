@@ -1,11 +1,13 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="./template.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html" xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <ui:define name="mainContent" id="adminComponet">
-        <p:fileUpload id="up1" fileUploadListener="#{adminBean.handleFileUpload}" allowTypes="*.txt;" description="*.txt" sizeLimit="512000" update="t2" />
-        <h:outputText id="t2" value="#{adminBean.lastFileUploaded}" />
+        <h:form enctype="text/plain">
+            <p:fileUpload id="up1" fileUploadListener="#{adminBean.handleFileUpload}" allowTypes="*.txt;" description="*.txt" sizeLimit="512000" update="t2" />
+            <h:outputText id="t2" value="#{adminBean.lastFileUploaded}" />
+        </h:form>
     </ui:define>
 </ui:composition>
