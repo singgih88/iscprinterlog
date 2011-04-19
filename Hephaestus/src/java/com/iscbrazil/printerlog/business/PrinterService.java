@@ -6,7 +6,7 @@ import com.iscbrazil.printerlog.model.Printer;
 import java.util.List;
 
 /**
- * @version 2011.APR.13.01
+ * @version 2011.APR.19.01
  * @author edilson.ales
  */
 public class PrinterService {
@@ -20,4 +20,30 @@ public class PrinterService {
         return printers;
     }
 
+    public Printer getByName(String name) {
+        
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrinterDAO printerDAO = factory.getPrinterDAO();
+        Printer printer = printerDAO.getByLogin(name);
+        factory.shutTx();
+        return printer;
+    }
+
+    public void save(Printer printer) {
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrinterDAO printerDAO = factory.getPrinterDAO();
+        factory.beginTx();
+        printerDAO.save(printer);
+        factory.shutTx();
+    }
+
+    public void addCounter(Long printerId) {
+            
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrinterDAO printerDAO = factory.getPrinterDAO();
+        factory.beginTx();
+        Printer printer = printerDAO.getById(printerId);
+        printer.setCounter((printer.getCounter())+ 1);
+        factory.shutTx();
+    }
 }

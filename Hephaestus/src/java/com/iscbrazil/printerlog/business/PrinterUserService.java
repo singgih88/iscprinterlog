@@ -20,5 +20,30 @@ public class PrinterUserService {
         return users;
     }
     
+    public PrinterUser getByLogin(String login) {
+        
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrinterUserDAO printerUserDAO = factory.getPrinterUserDAO();
+        PrinterUser user = printerUserDAO.getByLogin(login);
+        factory.shutTx();
+        return user;
+    }
 
+    public void save(PrinterUser printerUser) {
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrinterUserDAO printerUserDAO = factory.getPrinterUserDAO();
+        factory.beginTx();
+        printerUserDAO.save(printerUser);
+        factory.shutTx();
+    }
+
+    public void addCounter(Long printerUserId) {
+
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrinterUserDAO printerUserDAO = factory.getPrinterUserDAO();
+        factory.beginTx();
+        PrinterUser user = printerUserDAO.getById(printerUserId);
+        user.setCounter((user.getCounter()) + 1);
+        factory.shutTx();
+    }
 }

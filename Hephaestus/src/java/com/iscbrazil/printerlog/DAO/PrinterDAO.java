@@ -8,4 +8,6 @@ import com.iscbrazil.printerlog.model.Printer;
  */
 public interface PrinterDAO extends GenericDAO<Printer> {
 
+    public Printer getByLogin(String name);
+
 }
