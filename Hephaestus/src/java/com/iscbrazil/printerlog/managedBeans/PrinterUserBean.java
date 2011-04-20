@@ -8,7 +8,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 /**
- * @version 2011.APR.13.01
+ * @version 2011.APR.20.01
  * @author edilson.ales
  */
 @ManagedBean
@@ -23,7 +23,7 @@ public class PrinterUserBean {
     public List<PrinterUser> getPrinterUsers() {
 
         if (this.users == null) {
-            this.users = this.service.getAll();
+            this.users = this.service.getAllOrdered();
         }
         return this.users;
     }

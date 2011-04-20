@@ -1,8 +1,7 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" template="./template.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.prime.com.tr/ui"
-                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core">
+                xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:define name="mainContent">
         <div style="float: left;">
@@ -25,29 +24,11 @@
             </p:dataTable>
         </div>
         <h:form id="formInfo">
-            <div style=" float: left; position: relative; left: 60px; top: 3px; width: 305px;">
-                <p:panel id="p2" style="text-transform: capitalize;" >
-                    <h:outputLabel value="Serch Users: " for="search-users"/>
-                    <p:autoComplete id="search-users" value="#{printerUserBean.userComplete}"
-                                    completeMethod="#{printerUserBean.completePrinterUsers}" />
-
-                    <f:ajax event="click" execute="@form" render="opt1 opt2 opt3" listener="#{printerUserBean.bindUserSelected}" >
-                        <h:commandButton value="Ok" onclick="panelInfo.show();" style="position: relative; left: 13px;"/>
-                    </f:ajax>
-
-                </p:panel>
-            </div>
-            <div id="divInfo" style=" float: left; position: relative; left: 13px; top: 13px; width: 400px">
-                <p:panel id="p1" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo">
-                    <f:facet name="header">
-                        <h:outputText id="opt1" value="#{printerUserBean.userSelected.name}" /><br />
-                        <h:outputText id="opt2" value="#{printerUserBean.userSelected.category}" style="font-size: smaller;"/>
-                    </f:facet>
-                    <h:outputText value="Total Print: " />
-                    <h:outputText id="opt3" value="#{printerUserBean.userSelected.counter} sheets" />
-                </p:panel>
-                <br />
-            </div>
+            <c:set var="browser" value="${header['User-Agent']}" scope="request" />
+            <c:if test="#{templateBean.validateBrowser(browser)}">
+                <ui:include src="parts/userSearch.xhtml" />
+            </c:if>
+            <ui:include src="parts/userInfo.xhtml" />
         </h:form>
     </ui:define>
 

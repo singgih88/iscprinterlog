@@ -5,9 +5,10 @@ import com.iscbrazil.printerlog.model.PrinterUser;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 
 /**
- * @version 2011.APR.19.01
+ * @version 2011.APR.20.01
  * @author edilson.ales
  */
 public class HibernatePrinterUserDAO extends HibernateGenericDAO<PrinterUser> implements PrinterUserDAO {
@@ -31,5 +32,10 @@ public class HibernatePrinterUserDAO extends HibernateGenericDAO<PrinterUser> im
             System.out.println(e.getMessage());
             return null;
         }   
+    }
+
+    @Override
+    public List<PrinterUser> getAllOrdered() {
+        return this.getSession().createCriteria(PrinterUser.class).addOrder(Order.desc("counter")).list();
     }
 }

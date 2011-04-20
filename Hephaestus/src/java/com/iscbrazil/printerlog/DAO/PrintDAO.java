@@ -7,5 +7,4 @@ import com.iscbrazil.printerlog.model.Print;
  * @author edilson.ales
  */
 public interface PrintDAO extends GenericDAO<Print> {
-
 }

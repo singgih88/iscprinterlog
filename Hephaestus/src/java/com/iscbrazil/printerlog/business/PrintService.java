@@ -7,6 +7,7 @@ import com.iscbrazil.printerlog.model.Printer;
 import com.iscbrazil.printerlog.model.PrinterUser;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.PatternSyntaxException;
 import javax.faces.application.FacesMessage;
 
