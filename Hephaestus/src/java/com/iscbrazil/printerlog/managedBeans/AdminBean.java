@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -25,6 +26,7 @@ public class AdminBean implements Serializable {
         UploadedFile file = event.getFile();
         this.lastFileUploaded = file.getFileName();
         FacesContext context = FacesContext.getCurrentInstance();
+        FacesMessage msg = new FacesMessage();
 
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(file.getInputstream()));
@@ -32,11 +34,17 @@ public class AdminBean implements Serializable {
             PrintService printService = new PrintService();
 
             while ((dirtyLine = in.readLine()) != null) {
-                printService.processLine(dirtyLine);
+                if((msg = printService.processLine(dirtyLine)) != null) {
+                    context.addMessage("formMaster:formMenu:growlMsg", msg);
+                    return;
+                }
             }
-            
+            context.addMessage("formMaster:formMenu:growlMsg", new FacesMessage(FacesMessage.SEVERITY_INFO,
+                                    "Well done!",
+                                    "File " + this.lastFileUploaded + " has been successfully uploaded!"));
         } catch (IOException ex) {
-            
+            context.addMessage("formMaster:formMenu:growlMsg", new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Problem reading file source", ex.getMessage()));
         }
     }
 

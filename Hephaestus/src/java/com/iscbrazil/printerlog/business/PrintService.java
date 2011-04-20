@@ -7,16 +7,27 @@ import com.iscbrazil.printerlog.model.Printer;
 import com.iscbrazil.printerlog.model.PrinterUser;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.PatternSyntaxException;
+import javax.faces.application.FacesMessage;
 
 /**
- * @version 2011.APR.19.01
+ * @version 2011.APR.20.01
  * @author edilson.ales
  */
 public class PrintService {
 
-    public void processLine(String dirtyLine) {
+    public FacesMessage processLine(String dirtyLine) {
 
-        String[] parts = dirtyLine.split(";", 6);
+        String[] parts = null;
+        try {
+            parts = dirtyLine.split(";", 6);
+        } catch (PatternSyntaxException e) {
+            return new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                    "Problem with the source file. ",
+                                    "Maybe a problem creating the file occured. " +
+                                    "Impossible to find all the fields requiered. String malformad: " +
+                                    dirtyLine);
+        }
 
         parts[2] = parts[2].replace("[", "");
         parts[2] = parts[2].replace("]", "");
@@ -86,7 +97,6 @@ public class PrintService {
                 pus.save(newUser);
                 user = newUser;
             }
-
             print.setPrinter(printer);
             print.setPrinterUser(user);
             print.setPrintDate(date);
@@ -98,9 +108,9 @@ public class PrintService {
 
             this.save(print);
         } catch (Exception ex) {
-            System.out.println(ex.getStackTrace());
-            
+            return new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problem persisting print. ", ex.getMessage());
         }
+        return null;
     }
 
     public void save(Print print) {

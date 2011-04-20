@@ -5,7 +5,10 @@
                 xmlns:p="http://primefaces.prime.com.tr/ui">
 
     <ui:define name="mainContent" id="adminComponet">
-            <p:fileUpload id="up1" fileUploadListener="#{adminBean.handleFileUpload}" allowTypes="*.txt;" description="*.txt" sizeLimit="512000" update="t2" />
-            <h:outputText id="t2" value="#{adminBean.lastFileUploaded}" />
+            <p:fileUpload id="up1" fileUploadListener="#{adminBean.handleFileUpload}" allowTypes="*.txt;"
+                          description="*.txt" sizeLimit="512000" update="t2 formMaster:formMenu:growlMsg" />
+            <br />
+            <h:outputLabel value="Last file uploaded: " style="position: relative; left: 20px;" for="t2" /><br />
+            <h:outputText id="t2" value="#{adminBean.lastFileUploaded}" style="position: relative; left: 5px;" />
     </ui:define>
 </ui:composition>
