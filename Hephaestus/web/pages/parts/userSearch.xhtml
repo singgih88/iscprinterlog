@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <div style=" float: left; position: relative; left: 60px; top: 3px; width: 305px;">
+        <p:panel id="p2" style="text-transform: capitalize;" >
+            <h:outputLabel value="Serch Users: " for="search-users"/>
+            <p:autoComplete id="search-users" value="#{printerUserBean.userComplete}"
+                            completeMethod="#{printerUserBean.completePrinterUsers}" />
+            <h:commandButton value="Ok" onclick="panelInfo.show();" style="position: relative; left: 13px;">
+                <f:ajax event="click" execute="@form" render="opt1 opt2" listener="#{printerUserBean.bindUserSelected}" />
+            </h:commandButton>
+        </p:panel>
+    </div>
+</ui:composition>

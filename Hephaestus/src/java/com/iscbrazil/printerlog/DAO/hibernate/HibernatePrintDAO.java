@@ -13,6 +13,4 @@ public class HibernatePrintDAO extends HibernateGenericDAO<Print> implements Pri
     public HibernatePrintDAO(Session session) {
         super(session);
     }
-
-
 }

@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <div id="divInfo" style=" float: left; position: relative; left: 13px; top: 13px; width: 400px">
+        <p:panel id="p1" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo">
+            <f:facet name="header">
+                <h:outputText id="opt1" value="#{printerUserBean.userSelected.name}" /><br />
+                <h:outputText id="opt2" value="#{printerUserBean.userSelected.category}" style="font-size: smaller;"/>
+            </f:facet>
+            <f:ajax event="change" execute="@form" render="opt3 opt4">
+                <h:selectOneMenu id="years" value="#{printBean.schoolYear}" >
+                    <f:selectItems value="#{printBean.schoolYears}" var="sYear" itemValue="#{sYear}" />
+                </h:selectOneMenu>
+                <h:selectOneMenu id="_months" value="#{printBean.month}" >
+                    <f:selectItems value="#{printBean.months}" var="m" itemValue="#{m}" />
+                </h:selectOneMenu>
+            </f:ajax>
+            <br />
+            <h:outputText id="opt3" value="Ano Selecionado: #{printBean.schoolYear}" />
+            <br />
+            <h:outputText id="opt4" value="Mes Selecionado: #{printBean.month}" />
+        </p:panel>
+        <br />
+    </div>
+</ui:composition>
