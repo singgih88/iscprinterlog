@@ -10,18 +10,17 @@
                 <h:outputText id="opt1" value="#{printerUserBean.userSelected.name}" /><br />
                 <h:outputText id="opt2" value="#{printerUserBean.userSelected.category}" style="font-size: smaller;"/>
             </f:facet>
-            <f:ajax event="change" execute="@form" render="opt3 opt4">
+            <h:outputText value="Report" style="font-weight: bold;" />
+            <f:ajax event="change" execute="@form" >
+                <h:outputText value="School Year " />
                 <h:selectOneMenu id="years" value="#{printBean.schoolYear}" >
                     <f:selectItems value="#{printBean.schoolYears}" var="sYear" itemValue="#{sYear}" />
                 </h:selectOneMenu>
+                <h:outputText value=" Month " />
                 <h:selectOneMenu id="_months" value="#{printBean.month}" >
                     <f:selectItems value="#{printBean.months}" var="m" itemValue="#{m}" />
                 </h:selectOneMenu>
             </f:ajax>
-            <br />
-            <h:outputText id="opt3" value="Ano Selecionado: #{printBean.schoolYear}" />
-            <br />
-            <h:outputText id="opt4" value="Mes Selecionado: #{printBean.month}" />
         </p:panel>
         <br />
     </div>

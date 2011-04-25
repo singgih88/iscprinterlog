@@ -12,7 +12,7 @@
         <h:body>
             <h:outputStylesheet library="css" name="main.css" />
             <h:form id="formMaster">
-                <p:layout>
+                <p:layout style="left: 25%;">
                     <p:layoutUnit position="top" height="150" >
                         <h:form id="formMenu">
                             <p:growl id="growlMsg" showDetail="true" life="10000" />
@@ -30,6 +30,12 @@
                     <p:layoutUnit position="center">
                         <h:form id="forContent">
                             <ui:insert id="mainContent" name="mainContent">Here is all the site content</ui:insert>
+                            <div class="footer">
+                                <div class="HephaestusProject">
+                                    <h:outputText value="ISC Technology Department" styleClass="HephaestusProjectText" />
+                                    <h:graphicImage library="img" name="hephaestus.jpg" />
+                                </div>
+                            </div>
                         </h:form>
                     </p:layoutUnit>
                 </p:layout>

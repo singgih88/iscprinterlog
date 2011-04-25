@@ -68,6 +68,39 @@ div#navbar2 lia:hover {
     width: 160px;
 }
 
+.columnContent {
+    text-align: center;
+}
+
 body {
     font-size: 8pt;
+}
+
+.footer {
+    height: 60px;
+    width: 100%;
+    border-top: solid #000 1px;
+    border-bottom: solid #000 1px;
+    background-color: #336699;
+    position: absolute;
+    bottom: -0px;
+}
+
+.HephaestusProject {
+    display: block;
+    text-align: right;
+    font-size: 8pt;
+    padding: 5px;
+    margin-right: 2px;
+    font-family: sans-serif;
+    color: #FFF;
+    line-height: 30px;
+    white-space: nowrap;
+}
+
+.HephaestusProjectText {
+    position: relative;
+    text-align: left;
+    right: 30px;
+    top: -21px;
 }
