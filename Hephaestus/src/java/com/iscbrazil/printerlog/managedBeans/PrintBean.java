@@ -27,8 +27,13 @@ public class PrintBean implements Serializable {
     private String lastFileUploaded;
     private String schoolYear;
     private String month;
-    private List<String> schoolYears = new ArrayList<String>();
-    private List<String> months = new ArrayList<String>();
+    private List<String> schoolYears;
+    private List<String> months;
+
+    public PrintBean() {
+        this.schoolYear = "2007-2008";
+        this.month = "";
+    }
 
     public void handleFileUpload(FileUploadEvent event) {
         UploadedFile file = event.getFile();
@@ -73,16 +78,8 @@ public class PrintBean implements Serializable {
     }
 
     public List<String> getSchoolYears() {
-        if (schoolYears.isEmpty()) {
-            Calendar dt = new GregorianCalendar();
-            int actual = dt.get(Calendar.YEAR);
-            int y1;
-            String sYear;
-            for (int y2 = 2007; y2 < actual + 1; y2++) {
-                y1 = y2 + 1;
-                sYear = Integer.toString(y2) + "-" + Integer.toString(y1);
-                this.schoolYears.add(sYear);
-            }
+        if (this.schoolYears == null || this.schoolYears.isEmpty()) {
+            populateSchoolYears();
         }
         return schoolYears;
     }
@@ -100,19 +97,8 @@ public class PrintBean implements Serializable {
     }
 
     public List<String> getMonths() {
-        if(this.months.isEmpty()) {
-            this.months.add("January");
-            this.months.add("February");
-            this.months.add("March");
-            this.months.add("April");
-            this.months.add("May");
-            this.months.add("June");
-            this.months.add("July");
-            this.months.add("August");
-            this.months.add("September");
-            this.months.add("October");
-            this.months.add("November");
-            this.months.add("December");
+        if (this.months == null || this.months.isEmpty()) {
+            populateMonths();
         }
         return months;
     }
@@ -120,5 +106,34 @@ public class PrintBean implements Serializable {
     public void setMonths(List<String> months) {
         this.months = months;
     }
-    
+
+    protected void populateMonths() {
+        this.months = new ArrayList<String>();
+        this.months.add("");
+        this.months.add("January");
+        this.months.add("February");
+        this.months.add("March");
+        this.months.add("April");
+        this.months.add("May");
+        this.months.add("June");
+        this.months.add("July");
+        this.months.add("August");
+        this.months.add("September");
+        this.months.add("October");
+        this.months.add("November");
+        this.months.add("December");
+    }
+
+    protected void populateSchoolYears() {
+        this.schoolYears = new ArrayList<String>();
+        Calendar dt = new GregorianCalendar();
+        int actual = dt.get(Calendar.YEAR);
+        int y1;
+        String sYear;
+        for (int y2 = 2007; y2 < actual + 1; y2++) {
+            y1 = y2 + 1;
+            sYear = Integer.toString(y2) + "-" + Integer.toString(y1);
+            this.schoolYears.add(sYear);
+        }
+    }
 }
