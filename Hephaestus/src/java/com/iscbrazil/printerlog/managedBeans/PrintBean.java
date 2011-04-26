@@ -1,13 +1,12 @@
 package com.iscbrazil.printerlog.managedBeans;
 
 import com.iscbrazil.printerlog.business.PrintService;
+import com.iscbrazil.printerlog.model.UserReport;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -17,7 +16,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
- * @version 2011.APR.20.01
+ * @version 2011.APR.26.02
  * @author edilson.ales
  */
 @ManagedBean
@@ -25,14 +24,14 @@ import org.primefaces.model.UploadedFile;
 public class PrintBean implements Serializable {
 
     private String lastFileUploaded;
-    private String schoolYear;
-    private String month;
+    private List<String> schoolYearsSelected;
+    private List<String> monthsSelected;
     private List<String> schoolYears;
     private List<String> months;
 
     public PrintBean() {
-        this.schoolYear = "2007-2008";
-        this.month = "";
+        this.schoolYearsSelected = new ArrayList<String>();
+        this.monthsSelected = new ArrayList<String>();
     }
 
     public void handleFileUpload(FileUploadEvent event) {
@@ -69,17 +68,17 @@ public class PrintBean implements Serializable {
         this.lastFileUploaded = lastFileUploaded;
     }
 
-    public String getSchoolYear() {
-        return schoolYear;
+    public List<String> getSchoolYearsSelected() {
+        return schoolYearsSelected;
     }
 
-    public void setSchoolYear(String schoolYear) {
-        this.schoolYear = schoolYear;
+    public void setSchoolYearsSelected(List<String> schoolYearsSelected) {
+        this.schoolYearsSelected = schoolYearsSelected;
     }
 
     public List<String> getSchoolYears() {
         if (this.schoolYears == null || this.schoolYears.isEmpty()) {
-            populateSchoolYears();
+            this.schoolYears = new PrintService().populateschoolYears(new ArrayList<String>());
         }
         return schoolYears;
     }
@@ -88,17 +87,17 @@ public class PrintBean implements Serializable {
         this.schoolYears = schoolYears;
     }
 
-    public String getMonth() {
-        return month;
+    public List<String> getMonthsSelected() {
+        return monthsSelected;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
+    public void setMonthsSelected(List<String> monthsSelected) {
+        this.monthsSelected = monthsSelected;
     }
 
     public List<String> getMonths() {
         if (this.months == null || this.months.isEmpty()) {
-            populateMonths();
+           this.months = new PrintService().populateMonths(new ArrayList<String>());
         }
         return months;
     }
@@ -107,33 +106,7 @@ public class PrintBean implements Serializable {
         this.months = months;
     }
 
-    protected void populateMonths() {
-        this.months = new ArrayList<String>();
-        this.months.add("");
-        this.months.add("January");
-        this.months.add("February");
-        this.months.add("March");
-        this.months.add("April");
-        this.months.add("May");
-        this.months.add("June");
-        this.months.add("July");
-        this.months.add("August");
-        this.months.add("September");
-        this.months.add("October");
-        this.months.add("November");
-        this.months.add("December");
-    }
-
-    protected void populateSchoolYears() {
-        this.schoolYears = new ArrayList<String>();
-        Calendar dt = new GregorianCalendar();
-        int actual = dt.get(Calendar.YEAR);
-        int y1;
-        String sYear;
-        for (int y2 = 2007; y2 < actual + 1; y2++) {
-            y1 = y2 + 1;
-            sYear = Integer.toString(y2) + "-" + Integer.toString(y1);
-            this.schoolYears.add(sYear);
-        }
+    public List<UserReport> getUserReport() {
+        return null;
     }
 }
