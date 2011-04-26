@@ -5,22 +5,45 @@
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <div id="divInfo" style=" float: left; position: relative; left: 13px; top: 13px; width: 400px">
-        <p:panel id="p1" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo">
+        <p:panel id="p1" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo" >
             <f:facet name="header">
                 <h:outputText id="opt1" value="#{printerUserBean.userSelected.name}" /><br />
                 <h:outputText id="opt2" value="#{printerUserBean.userSelected.category}" style="font-size: smaller;"/>
             </f:facet>
-            <h:outputText value="Report" style="font-weight: bold;" />
-            <f:ajax event="change" execute="@form" >
-                <h:outputText value="School Year " />
-                <h:selectOneMenu id="years" value="#{printBean.schoolYear}" >
-                    <f:selectItems value="#{printBean.schoolYears}" var="sYear" itemValue="#{sYear}" />
-                </h:selectOneMenu>
-                <h:outputText value=" Month " />
-                <h:selectOneMenu id="_months" value="#{printBean.month}" >
-                    <f:selectItems value="#{printBean.months}" var="m" itemValue="#{m}" />
-                </h:selectOneMenu>
-            </f:ajax>
+            <h:panelGrid columns="3">
+                <f:ajax event="click" execute="@form" render="dt2 dt3" >
+                    <h:outputText value="School Year:" />
+                    <h:outputText value="Month:" />
+                    <h:outputText value="" />
+                    <h:selectManyListbox id="years" value="#{printBean.schoolYearsSelected}" size="13">
+                        <f:selectItems value="#{printBean.schoolYears}" var="sYear" itemValue="#{sYear}" />
+                    </h:selectManyListbox>
+                    <h:selectManyListbox id="_months" value="#{printBean.monthsSelected}" >
+                        <f:selectItems value="#{printBean.months}" var="m" itemValue="#{m}" />
+                    </h:selectManyListbox>
+                    <p:commandButton onclick="panelReport.show();" value="Generate" />
+                </f:ajax>
+            </h:panelGrid>
+        </p:panel>
+        <p:panel id="p3" widgetVar="panelReport" visible="hidden" header="User Report" closable="true" style="position: relative; top: -134px;">
+            <h:panelGrid columns="2">
+                <p:dataTable id="dt2" var="sys" value="#{printBean.schoolYearsSelected}">
+                    <p:column styleClass="columnContent">
+                        <f:facet name="header">
+                            <h:outputText value="School Years"/>
+                        </f:facet>
+                        <h:outputText value="#{sys}" />
+                    </p:column>
+                </p:dataTable>
+                <p:dataTable id="dt3" var="ms" value="#{printBean.monthsSelected}" style="position: relative; left: -180px;" >
+                    <p:column styleClass="columnContent">
+                        <f:facet name="header">
+                            <h:outputText value="Months"/>
+                        </f:facet>
+                        <h:outputText value="#{ms}" />
+                    </p:column>
+                </p:dataTable>
+            </h:panelGrid>
         </p:panel>
         <br />
     </div>

@@ -18,12 +18,11 @@ public class PrinterUserBean {
     private List<PrinterUser> users;
     private PrinterUser userSelected;
     private String userComplete;
-    private PrinterUserService service = new PrinterUserService();
 
     public List<PrinterUser> getPrinterUsers() {
 
         if (this.users == null) {
-            this.users = this.service.getAllOrdered();
+            this.users = new PrinterUserService().getAllOrdered();
         }
         return this.users;
     }

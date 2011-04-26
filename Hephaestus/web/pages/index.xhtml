@@ -5,7 +5,7 @@
 
     <ui:define name="mainContent">
         <div style="float: left;">
-            <p:dataTable var="usr" value="#{printerUserBean.printerUsers}" rows="15" paginator="true"
+            <p:dataTable id="dt1" var="usr" value="#{printerUserBean.printerUsers}" rows="15" paginator="true"
                          selection="#{printerUserBean.userSelected}" selectionMode="single" update="formInfo:p1"
                          onselectComplete="formInfo:panelInfo.show();" widgetVar="usersTable"
                          paginatorPosition="bottom" pageLinks="5" >
@@ -29,7 +29,6 @@
                 <ui:include src="parts/userSearch.xhtml" />
             </c:if>
             <ui:include src="parts/userInfo.xhtml" />
-            <ui:include src="parts/userReport.xhtml" />
         </h:form>
     </ui:define>
 
