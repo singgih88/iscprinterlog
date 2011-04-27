@@ -6,7 +6,7 @@ import com.iscbrazil.printerlog.model.Printer;
 import java.util.List;
 
 /**
- * @version 2011.APR.19.01
+ * @version 2011.APR.27.01
  * @author edilson.ales
  */
 public class PrinterService {
@@ -24,7 +24,7 @@ public class PrinterService {
         
         FactoryDAO factory = FactoryDAO.getFactoryDAO();
         PrinterDAO printerDAO = factory.getPrinterDAO();
-        Printer printer = printerDAO.getByLogin(name);
+        Printer printer = printerDAO.getByName(name);
         factory.shutTx();
         return printer;
     }

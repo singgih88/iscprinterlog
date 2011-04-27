@@ -6,7 +6,6 @@ import com.iscbrazil.printerlog.model.Print;
 import com.iscbrazil.printerlog.model.Printer;
 import com.iscbrazil.printerlog.model.PrinterUser;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -15,7 +14,7 @@ import java.util.regex.PatternSyntaxException;
 import javax.faces.application.FacesMessage;
 
 /**
- * @version 2011.APR.26.01
+ * @version 2011.APR.27.01
  * @author edilson.ales
  */
 public class PrintService {
@@ -72,32 +71,32 @@ public class PrintService {
         Printer printer = new Printer();
         PrinterUser user = new PrinterUser();
 
+        if (parts[0].equalsIgnoreCase("HS_Lab")) { //it trys convert to unique name here
+            parts[0] = "High.School.Lab";
+        }
+        if (parts[0].equalsIgnoreCase("MS_Lab")) { //and here
+            parts[0] = "Middle_School";
+        }
         try {
-
             date = df.parse(parts[2]);
-
+            
             if ((printer = ps.getByName(parts[0])) == null) { //if system didn't find a printer
-                if (parts[0].equalsIgnoreCase("HS_Lab")) { //it trys convert to unique name here
-                    parts[0] = "High.School.Lab";
-                } else if (parts[0].equalsIgnoreCase("MS_Lab")) { //and here
-                    parts[0] = "Middle_School";
-                } else { //if ti still cant find the printer, it saves aa a new one
-                    Printer newPrinter = new Printer();
-                    newPrinter.setCounter(Long.parseLong("1"));
-                    newPrinter.setName(parts[0]);
-                    newPrinter.setPlace(parts[0]);
-                    ps.save(newPrinter);
-                    printer = newPrinter;
-                }
+                Printer newPrinter = new Printer();
+                newPrinter.setCounter(Long.parseLong("1"));
+                newPrinter.setName(parts[0]);
+                newPrinter.setPlace(parts[0]);
+                ps.save(newPrinter);
+                printer = ps.getByName(newPrinter.getName());
+
             }
-            if (((user = pus.getByLogin(parts[1]))) == null) { //if system didn't find the user it saves a new one
+            if ((user = pus.getByLogin(parts[1])) == null) { //if system didn't find the user it saves a new one
                 PrinterUser newUser = new PrinterUser();
                 newUser.setLogin(parts[1]);
                 newUser.setCounter(Long.parseLong("1"));
                 newUser.setCategory("");
                 newUser.setName(parts[1]);
                 pus.save(newUser);
-                user = newUser;
+                user = pus.getByLogin(newUser.getLogin());
             }
             print.setPrinter(printer);
             print.setPrinterUser(user);
@@ -142,7 +141,7 @@ public class PrintService {
     }
 
     public List<String> populateschoolYears(List<String> schoolYears) {
-        schoolYears = new ArrayList<String>();
+        schoolYears.add("All");
         Calendar dt = new GregorianCalendar();
         int actual = dt.get(Calendar.YEAR);
         int y1;
