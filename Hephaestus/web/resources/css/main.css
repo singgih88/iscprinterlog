@@ -72,6 +72,10 @@ div#navbar2 lia:hover {
     text-align: center;
 }
 
+.reportColumn {
+    width: 90px;
+}
+
 body {
     font-size: 8pt;
 }

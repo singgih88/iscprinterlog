@@ -16,7 +16,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
- * @version 2011.APR.26.02
+ * @version 2011.APR.27.01
  * @author edilson.ales
  */
 @ManagedBean
@@ -69,6 +69,11 @@ public class PrintBean implements Serializable {
     }
 
     public List<String> getSchoolYearsSelected() {
+        if(this.schoolYearsSelected != null && this.schoolYearsSelected.contains("All")){
+            this.schoolYearsSelected.clear();
+            this.schoolYearsSelected.addAll(this.getSchoolYears());
+            this.schoolYearsSelected.remove(0);
+        }
         return schoolYearsSelected;
     }
 
@@ -88,6 +93,11 @@ public class PrintBean implements Serializable {
     }
 
     public List<String> getMonthsSelected() {
+        if(this.monthsSelected != null && this.monthsSelected.contains("All")){
+            this.monthsSelected.clear();
+            this.monthsSelected.addAll(this.getMonths());
+            this.monthsSelected.remove(0);
+        }
         return monthsSelected;
     }
 

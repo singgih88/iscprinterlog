@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
- * @version 2011.APR.19.01
+ * @version 2011.APR.27.01
  * @author edilson.ales
  */
 public class HibernatePrinterDAO extends HibernateGenericDAO<Printer> implements PrinterDAO {
@@ -17,7 +17,7 @@ public class HibernatePrinterDAO extends HibernateGenericDAO<Printer> implements
     }
 
     @Override
-    public Printer getByLogin(String name) {
+    public Printer getByName(String name) {
         
         Query query = this.getSession().createQuery("from Printer where name = :printerName");
         query.setParameter("printerName", name);
