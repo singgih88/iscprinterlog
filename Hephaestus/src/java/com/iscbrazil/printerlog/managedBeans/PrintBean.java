@@ -36,7 +36,6 @@ public class PrintBean implements Serializable {
 
     public void handleFileUpload(FileUploadEvent event) {
         UploadedFile file = event.getFile();
-        this.lastFileUploaded = file.getFileName();
         PrintService printService = new PrintService();
         FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage msg = new FacesMessage();

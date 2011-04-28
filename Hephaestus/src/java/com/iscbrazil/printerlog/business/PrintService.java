@@ -14,7 +14,7 @@ import java.util.regex.PatternSyntaxException;
 import javax.faces.application.FacesMessage;
 
 /**
- * @version 2011.APR.27.01
+ * @version 2011.APR.28.01
  * @author edilson.ales
  */
 public class PrintService {
@@ -34,7 +34,7 @@ public class PrintService {
 
         parts[2] = parts[2].replace("[", "");
         parts[2] = parts[2].replace("]", "");
-        parts[5] = parts[5].replace("::ffff:", "");
+        String ip = parts[5].replace("::ffff:", "");
         String month = parts[2].substring(3, 6);
 
         if (month.equalsIgnoreCase("Jan")) {
@@ -79,8 +79,10 @@ public class PrintService {
         }
         try {
             date = df.parse(parts[2]);
+            printer = ps.getByName(parts[0]);
+            user = pus.getByLogin(parts[1]);
             
-            if ((printer = ps.getByName(parts[0])) == null) { //if system didn't find a printer
+            if (printer.getId() == null) { //if system didn't find a printer
                 Printer newPrinter = new Printer();
                 newPrinter.setCounter(Long.parseLong("1"));
                 newPrinter.setName(parts[0]);
@@ -89,7 +91,7 @@ public class PrintService {
                 printer = ps.getByName(newPrinter.getName());
 
             }
-            if ((user = pus.getByLogin(parts[1])) == null) { //if system didn't find the user it saves a new one
+            if (user.getId() == null) { //if system didn't find the user it saves a new one
                 PrinterUser newUser = new PrinterUser();
                 newUser.setLogin(parts[1]);
                 newUser.setCounter(Long.parseLong("1"));
@@ -102,7 +104,7 @@ public class PrintService {
             print.setPrinterUser(user);
             print.setPrintDate(date);
             print.setPage(Integer.parseInt(parts[3]));
-            print.setIp(parts[5]);
+            print.setIp(ip);
 
             pus.addCounter(user.getId());
             ps.addCounter(printer.getId());
