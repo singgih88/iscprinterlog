@@ -38,6 +38,13 @@ public class PrintBean implements Serializable {
         UploadedFile file = event.getFile();
         PrintService printService = new PrintService();
         FacesContext context = FacesContext.getCurrentInstance();
+        
+        if(!printService.validateFile(file.getFileName())){
+            context.addMessage("formMaster:formMenu:growlMsg", new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "File has already been uploaded once", "File isn't going to be uploaded again to avoid data duplicity"));
+            return;
+        }
+        this.lastFileUploaded = file.getFileName();
         FacesMessage msg = new FacesMessage();
 
         try {
@@ -45,7 +52,7 @@ public class PrintBean implements Serializable {
             String dirtyLine;
 
             while ((dirtyLine = in.readLine()) != null) {
-                if ((msg = printService.processLine(dirtyLine)) != null) {
+                if ((msg = printService.processLine(dirtyLine, file.getFileName())) != null) {
                     context.addMessage("formMaster:formMenu:growlMsg", msg);
                     return;
                 }
