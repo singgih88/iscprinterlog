@@ -19,7 +19,7 @@ import javax.faces.application.FacesMessage;
  */
 public class PrintService {
 
-    public FacesMessage processLine(String dirtyLine) {
+    public FacesMessage processLine(String dirtyLine, String fileName) {
 
         String[] parts = null;
         try {
@@ -105,6 +105,7 @@ public class PrintService {
             print.setPrintDate(date);
             print.setPage(Integer.parseInt(parts[3]));
             print.setIp(ip);
+            print.setFileName(fileName);
 
             pus.addCounter(user.getId());
             ps.addCounter(printer.getId());
@@ -154,5 +155,15 @@ public class PrintService {
             schoolYears.add(sYear);
         }
         return schoolYears;
+    }
+
+    public boolean validateFile(String fileName) {
+
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrintDAO printDAO = factory.getPrintDAO();
+        factory.beginTx();
+        boolean aux = printDAO.validateFile(fileName);
+        factory.shutTx();
+        return aux;
     }
 }

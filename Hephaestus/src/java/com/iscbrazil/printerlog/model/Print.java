@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * @version 2011.APR.11.03
+ * @version 2011.APR.28.01
  * @author edilson.ales
  */
 @Entity
@@ -35,6 +35,8 @@ public class Print implements Serializable {
     private Integer page;
     @Column(length = 15)
     private String ip;
+    @Column(length = 15, name="fileName")
+    private String fileName;
 
     public Long getId() {
         return id;
@@ -82,6 +84,14 @@ public class Print implements Serializable {
 
     public void setPrinterUser(PrinterUser printerUser) {
         this.printerUser = printerUser;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override
