@@ -9,4 +9,6 @@ import com.iscbrazil.printerlog.model.Print;
 public interface PrintDAO extends GenericDAO<Print> {
 
     public boolean validateFile(String fileName);
+
+    public String getLastFileUploaded();
 }
