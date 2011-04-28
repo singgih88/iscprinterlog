@@ -10,7 +10,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.regex.PatternSyntaxException;
 import javax.faces.application.FacesMessage;
 
 /**
@@ -22,46 +21,48 @@ public class PrintService {
     public FacesMessage processLine(String dirtyLine, String fileName) {
 
         String[] parts = null;
+        String ip;
+        String month;
+        
         try {
             parts = dirtyLine.split(";", 6);
-        } catch (PatternSyntaxException e) {
+            parts[2] = parts[2].replace("[", "");
+            parts[2] = parts[2].replace("]", "");
+            ip = parts[5].replace("::ffff:", "");
+            month = parts[2].substring(3, 6);
+            
+            if (month.equalsIgnoreCase("Jan")) {
+                parts[2] = parts[2].replace(month, "01");
+            } else if (month.equalsIgnoreCase("Feb")) {
+                parts[2] = parts[2].replace(month, "02");
+            } else if (month.equalsIgnoreCase("Mar")) {
+                parts[2] = parts[2].replace(month, "03");
+            } else if (month.equalsIgnoreCase("Apr")) {
+                parts[2] = parts[2].replace(month, "04");
+            } else if (month.equalsIgnoreCase("May")) {
+                parts[2] = parts[2].replace(month, "05");
+            } else if (month.equalsIgnoreCase("jun")) {
+                parts[2] = parts[2].replace(month, "06");
+            } else if (month.equalsIgnoreCase("jul")) {
+                parts[2] = parts[2].replace(month, "07");
+            } else if (month.equalsIgnoreCase("aug")) {
+                parts[2] = parts[2].replace(month, "08");
+            } else if (month.equalsIgnoreCase("Sep")) {
+                parts[2] = parts[2].replace(month, "09");
+            } else if (month.equalsIgnoreCase("Oct")) {
+                parts[2] = parts[2].replace(month, "10");
+            } else if (month.equalsIgnoreCase("Nov")) {
+                parts[2] = parts[2].replace(month, "11");
+            } else if (month.equalsIgnoreCase("Dec")) {
+                parts[2] = parts[2].replace(month, "12");
+            }
+
+        } catch (Exception e) {
             return new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Problem with the source file. ",
-                    "Maybe a problem creating the file occured. "
-                    + "Impossible to find all the fields requiered. String malformad: "
-                    + dirtyLine);
+                    "String malformad: " + dirtyLine + " " + e.getMessage());
         }
 
-        parts[2] = parts[2].replace("[", "");
-        parts[2] = parts[2].replace("]", "");
-        String ip = parts[5].replace("::ffff:", "");
-        String month = parts[2].substring(3, 6);
-
-        if (month.equalsIgnoreCase("Jan")) {
-            parts[2] = parts[2].replace(month, "01");
-        } else if (month.equalsIgnoreCase("Feb")) {
-            parts[2] = parts[2].replace(month, "02");
-        } else if (month.equalsIgnoreCase("Mar")) {
-            parts[2] = parts[2].replace(month, "03");
-        } else if (month.equalsIgnoreCase("Apr")) {
-            parts[2] = parts[2].replace(month, "04");
-        } else if (month.equalsIgnoreCase("May")) {
-            parts[2] = parts[2].replace(month, "05");
-        } else if (month.equalsIgnoreCase("jun")) {
-            parts[2] = parts[2].replace(month, "06");
-        } else if (month.equalsIgnoreCase("jul")) {
-            parts[2] = parts[2].replace(month, "07");
-        } else if (month.equalsIgnoreCase("aug")) {
-            parts[2] = parts[2].replace(month, "08");
-        } else if (month.equalsIgnoreCase("Sep")) {
-            parts[2] = parts[2].replace(month, "09");
-        } else if (month.equalsIgnoreCase("Oct")) {
-            parts[2] = parts[2].replace(month, "10");
-        } else if (month.equalsIgnoreCase("Nov")) {
-            parts[2] = parts[2].replace(month, "11");
-        } else if (month.equalsIgnoreCase("Dec")) {
-            parts[2] = parts[2].replace(month, "12");
-        }
 
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss");
@@ -81,7 +82,7 @@ public class PrintService {
             date = df.parse(parts[2]);
             printer = ps.getByName(parts[0]);
             user = pus.getByLogin(parts[1]);
-            
+
             if (printer.getId() == null) { //if system didn't find a printer
                 Printer newPrinter = new Printer();
                 newPrinter.setCounter(Long.parseLong("1"));
@@ -161,9 +162,16 @@ public class PrintService {
 
         FactoryDAO factory = FactoryDAO.getFactoryDAO();
         PrintDAO printDAO = factory.getPrintDAO();
-        factory.beginTx();
         boolean aux = printDAO.validateFile(fileName);
         factory.shutTx();
         return aux;
+    }
+
+    public String getLastFileUploaded() {
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrintDAO printDAO = factory.getPrintDAO();
+        String lastFileUploaded = printDAO.getLastFileUploaded();
+        factory.shutTx();
+        return lastFileUploaded;
     }
 }

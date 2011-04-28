@@ -29,4 +29,11 @@ public class HibernatePrintDAO extends HibernateGenericDAO<Print> implements Pri
         }
 
     }
+
+    @Override
+    public String getLastFileUploaded() {
+        Query query = this.getSession().createQuery("select fileName from Print where (select max(printDate) from Print) = printDate");
+
+        return "";
+    }
 }

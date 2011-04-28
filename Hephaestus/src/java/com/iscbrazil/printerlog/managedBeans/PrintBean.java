@@ -67,6 +67,9 @@ public class PrintBean implements Serializable {
     }
 
     public String getLastFileUploaded() {
+        if(this.lastFileUploaded == null) {
+            this.lastFileUploaded = new PrintService().getLastFileUploaded();
+        }
         return lastFileUploaded;
     }
 
