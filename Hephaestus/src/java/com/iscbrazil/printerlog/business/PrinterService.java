@@ -6,16 +6,27 @@ import com.iscbrazil.printerlog.model.Printer;
 import java.util.List;
 
 /**
- * @version 2011.APR.27.01
+ * @version 2011.APR.29.01
  * @author edilson.ales
  */
 public class PrinterService {
 
-    public List<Printer> getAll() {
+    private static PrinterService instance;
+
+    private PrinterService() {}
+
+    public static PrinterService getInstance() {
+        if(instance == null) {
+            instance = new PrinterService();
+        }
+        return instance;
+    }
+
+    public List<Printer> getAllOrdered() {
 
         FactoryDAO factory = FactoryDAO.getFactoryDAO();
         PrinterDAO printerDAO = factory.getPrinterDAO();
-        List<Printer> printers = printerDAO.getAll();
+        List<Printer> printers = printerDAO.getAllOrdered();
         factory.shutTx();
         return printers;
     }

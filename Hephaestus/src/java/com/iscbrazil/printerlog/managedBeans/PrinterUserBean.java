@@ -20,9 +20,8 @@ public class PrinterUserBean {
     private String userComplete;
 
     public List<PrinterUser> getPrinterUsers() {
-
         if (this.users == null) {
-            this.users = new PrinterUserService().getAllOrdered();
+            this.users = PrinterUserService.getInstance().getAllOrdered();
         }
         return this.users;
     }

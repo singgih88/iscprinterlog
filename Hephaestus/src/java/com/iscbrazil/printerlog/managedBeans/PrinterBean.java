@@ -16,12 +16,12 @@ public class PrinterBean {
 
     private Printer printerSelected;
     private List<Printer> printers;
-    private PrinterService service = new PrinterService();
+    private PrinterService service = PrinterService.getInstance();
 
     public List<Printer> getAllPrinters() {
 
         if (this.printers == null) {
-            this.printers = service.getAll();
+            this.printers = service.getAllOrdered();
         }
         return this.printers;
 

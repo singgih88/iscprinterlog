@@ -11,8 +11,8 @@
                 <h:outputText id="opt2" value="#{printerUserBean.userSelected.category}" style="font-size: smaller;"/>
             </f:facet>
             <h:outputText value="Select reports school year(s) and month(s)" /><br /><br />
-            <f:ajax event="click" execute="@form" render="dt2 dt3" >
-                <h:panelGrid columns="2" columnClasses="reportColumn" style="position: relative; left: 80px;">
+            
+            <h:panelGrid id="pg" columns="2" columnClasses="reportColumn" style="position: relative; left: 80px;">
                     <h:outputText value="School Year" />
                     <h:outputText value="Month" />
                     <h:selectManyListbox id="years" value="#{printBean.schoolYearsSelected}" size="13">
@@ -22,25 +22,31 @@
                         <f:selectItems value="#{printBean.months}" var="m" itemValue="#{m}" />
                     </h:selectManyListbox>
                 </h:panelGrid>
+            <f:ajax event="click" execute="pg" render="dt2">
                 <p:commandButton onclick="panelReport.show();" value="Generate User Report" style="position: relative; left: 98px; top: 3px;" />
             </f:ajax>
         </p:panel>
-        <p:panel id="p3" widgetVar="panelReport" visible="hidden" header="User Report" closable="true" style="height: 445px; position: relative; top: -397px;">
+        <p:panel id="p3" widgetVar="panelReport" visible="hidden" header="User Report" closable="true" style="height: 445px; position: absolute; top: -54px; width: 403px;">
             <h:panelGrid columns="2" columnClasses="reportColumn">
-                <p:dataTable id="dt2" var="sys" value="#{printBean.schoolYearsSelected}">
+                <p:dataTable id="dt2" var="usrReport" value="#{printBean.userReports}"
+                             rows="12" paginator="true" paginatorPosition="bottom" >
                     <p:column styleClass="columnContent">
                         <f:facet name="header">
-                            <h:outputText value="School Years"/>
+                            <h:outputText value="School Year"/>
                         </f:facet>
-                        <h:outputText value="#{sys}" />
+                        <h:outputText value="#{usrReport.schoolYear}" />
                     </p:column>
-                </p:dataTable>
-                <p:dataTable id="dt3" var="ms" value="#{printBean.monthsSelected}" style="position: relative; left: -180px;" >
                     <p:column styleClass="columnContent">
                         <f:facet name="header">
-                            <h:outputText value="Months"/>
+                            <h:outputText value="Month" />
                         </f:facet>
-                        <h:outputText value="#{ms}" />
+                        <h:outputText value="#{usrReport.month}" />
+                    </p:column>
+                    <p:column styleClass="columnContent">
+                        <f:facet name="header">
+                            <h:outputText value="Total Print" />
+                        </f:facet>
+                        <h:outputText value="#{usrReport.printsByMonth}" />
                     </p:column>
                 </p:dataTable>
             </h:panelGrid>
