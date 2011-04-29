@@ -1,6 +1,7 @@
 package com.iscbrazil.printerlog.managedBeans;
 
 import com.iscbrazil.printerlog.business.PrintService;
+import com.iscbrazil.printerlog.model.PrinterUser;
 import com.iscbrazil.printerlog.model.UserReport;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,7 +17,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
- * @version 2011.APR.27.01
+ * @version 2011.APR.29.01
  * @author edilson.ales
  */
 @ManagedBean
@@ -36,10 +37,10 @@ public class PrintBean implements Serializable {
 
     public void handleFileUpload(FileUploadEvent event) {
         UploadedFile file = event.getFile();
-        PrintService printService = new PrintService();
+        PrintService printService = PrintService.getInstance();
         FacesContext context = FacesContext.getCurrentInstance();
-        
-        if(!printService.validateFile(file.getFileName())){
+
+        if (!printService.validateFile(file.getFileName())) {
             context.addMessage("formMaster:formMenu:growlMsg", new FacesMessage(FacesMessage.SEVERITY_WARN,
                     "File has already been uploaded once", "File isn't going to be uploaded again to avoid data duplicity"));
             return;
@@ -67,8 +68,8 @@ public class PrintBean implements Serializable {
     }
 
     public String getLastFileUploaded() {
-        if(this.lastFileUploaded == null) {
-            this.lastFileUploaded = new PrintService().getLastFileUploaded();
+        if (this.lastFileUploaded == null) {
+            this.lastFileUploaded = PrintService.getInstance().getLastFileUploaded();
         }
         return lastFileUploaded;
     }
@@ -78,7 +79,7 @@ public class PrintBean implements Serializable {
     }
 
     public List<String> getSchoolYearsSelected() {
-        if(this.schoolYearsSelected != null && this.schoolYearsSelected.contains("All")){
+        if (this.schoolYearsSelected != null && this.schoolYearsSelected.contains("All")) {
             this.schoolYearsSelected.clear();
             this.schoolYearsSelected.addAll(this.getSchoolYears());
             this.schoolYearsSelected.remove(0);
@@ -92,7 +93,7 @@ public class PrintBean implements Serializable {
 
     public List<String> getSchoolYears() {
         if (this.schoolYears == null || this.schoolYears.isEmpty()) {
-            this.schoolYears = new PrintService().populateschoolYears(new ArrayList<String>());
+            this.schoolYears = PrintService.getInstance().populateschoolYears(new ArrayList<String>());
         }
         return schoolYears;
     }
@@ -102,7 +103,7 @@ public class PrintBean implements Serializable {
     }
 
     public List<String> getMonthsSelected() {
-        if(this.monthsSelected != null && this.monthsSelected.contains("All")){
+        if (this.monthsSelected != null && this.monthsSelected.contains("All")) {
             this.monthsSelected.clear();
             this.monthsSelected.addAll(this.getMonths());
             this.monthsSelected.remove(0);
@@ -116,7 +117,7 @@ public class PrintBean implements Serializable {
 
     public List<String> getMonths() {
         if (this.months == null || this.months.isEmpty()) {
-           this.months = new PrintService().populateMonths(new ArrayList<String>());
+            this.months = PrintService.getInstance().populateMonths(new ArrayList<String>());
         }
         return months;
     }
@@ -125,7 +126,23 @@ public class PrintBean implements Serializable {
         this.months = months;
     }
 
-    public List<UserReport> getUserReport() {
-        return null;
+    public List<UserReport> getUserReports() {
+        
+        int printerUserId = 1;
+        List<UserReport> userReports = new ArrayList<UserReport>();
+        PrintService printService = PrintService.getInstance();
+        UserReport userReport;
+
+        for (String sys : this.schoolYearsSelected) {
+            for(String month : this.monthsSelected) {
+                userReport = new UserReport();
+                userReport.setSchoolYear(sys);
+                userReport.setMonth(month);
+                userReport.setPrintsByMonth(printService.getFilteredPrints(sys, month, printerUserId));
+                userReports.add(userReport);
+            }
+        }
+
+        return userReports;
     }
 }

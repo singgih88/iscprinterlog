@@ -6,10 +6,21 @@ import com.iscbrazil.printerlog.model.PrinterUser;
 import java.util.List;
 
 /**
- * @version 2011.APR.20.01
+ * @version 2011.APR.29.01
  * @author edilson.ales
  */
 public class PrinterUserService {
+
+    private static PrinterUserService instance;
+
+    private PrinterUserService() {}
+
+    public static PrinterUserService getInstance() {
+        if(instance == null) {
+            instance = new PrinterUserService();
+        }
+        return instance;
+    }
 
     public List<PrinterUser> getAllOrdered() {
 

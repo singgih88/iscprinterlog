@@ -1,34 +1,22 @@
 package com.iscbrazil.printerlog.model;
 
-import java.util.List;
-
 /**
- * @version 2011.APR.26.02
+ * @version 2011.APR.29.03
  * @author edilson.ales
  */
-
 public class UserReport {
 
-    private int id;
-    private List<String> months;
-    private List<String> schoolYear;
-    private List<Long> printsMonth;
+    private String schoolYear;
     private PrinterUser printerUser;
+    private String month;
+    private Long printsByMonth;
 
-    public int getId() {
-        return id;
+    public String getMonth() {
+        return month;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<String> getMonths() {
-        return months;
-    }
-
-    public void setMonths(List<String> months) {
-        this.months = months;
+    public void setMonth(String month) {
+        this.month = month;
     }
 
     public PrinterUser getPrinterUser() {
@@ -39,42 +27,19 @@ public class UserReport {
         this.printerUser = printerUser;
     }
 
-    public List<Long> getPrintsMonth() {
-        return printsMonth;
+    public Long getPrintsByMonth() {
+        return printsByMonth;
     }
 
-    public void setPrintsMonth(List<Long> printsMonth) {
-        this.printsMonth = printsMonth;
+    public void setPrintsByMonth(Long printsByMonth) {
+        this.printsByMonth = printsByMonth;
     }
 
-    public List<String> getSchoolYear() {
+    public String getSchoolYear() {
         return schoolYear;
     }
 
-    public void setSchoolYear(List<String> schoolYear) {
+    public void setSchoolYear(String schoolYear) {
         this.schoolYear = schoolYear;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final UserReport other = (UserReport) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + this.id;
-        return hash;
-    }
-
 }

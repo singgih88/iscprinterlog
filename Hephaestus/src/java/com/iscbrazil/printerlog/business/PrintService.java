@@ -13,17 +13,29 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 
 /**
- * @version 2011.APR.28.01
+ * @version 2011.APR.29.01
  * @author edilson.ales
  */
 public class PrintService {
+
+    private static PrintService instance;
+
+    private PrintService() {
+    }
+
+    public static PrintService getInstance() {
+        if (instance == null) {
+            instance = new PrintService();
+        }
+        return instance;
+    }
 
     public FacesMessage processLine(String dirtyLine, String fileName) {
 
         String[] parts = null;
         String ip;
         String month;
-        
+
         try {
             parts = dirtyLine.split(";", 6);
             parts[2] = parts[2].replace("[", "");
@@ -31,31 +43,7 @@ public class PrintService {
             ip = parts[5].replace("::ffff:", "");
             month = parts[2].substring(3, 6);
             
-            if (month.equalsIgnoreCase("Jan")) {
-                parts[2] = parts[2].replace(month, "01");
-            } else if (month.equalsIgnoreCase("Feb")) {
-                parts[2] = parts[2].replace(month, "02");
-            } else if (month.equalsIgnoreCase("Mar")) {
-                parts[2] = parts[2].replace(month, "03");
-            } else if (month.equalsIgnoreCase("Apr")) {
-                parts[2] = parts[2].replace(month, "04");
-            } else if (month.equalsIgnoreCase("May")) {
-                parts[2] = parts[2].replace(month, "05");
-            } else if (month.equalsIgnoreCase("jun")) {
-                parts[2] = parts[2].replace(month, "06");
-            } else if (month.equalsIgnoreCase("jul")) {
-                parts[2] = parts[2].replace(month, "07");
-            } else if (month.equalsIgnoreCase("aug")) {
-                parts[2] = parts[2].replace(month, "08");
-            } else if (month.equalsIgnoreCase("Sep")) {
-                parts[2] = parts[2].replace(month, "09");
-            } else if (month.equalsIgnoreCase("Oct")) {
-                parts[2] = parts[2].replace(month, "10");
-            } else if (month.equalsIgnoreCase("Nov")) {
-                parts[2] = parts[2].replace(month, "11");
-            } else if (month.equalsIgnoreCase("Dec")) {
-                parts[2] = parts[2].replace(month, "12");
-            }
+            parts[2] = parts[2].replace(month, convertMonth(month));
 
         } catch (Exception e) {
             return new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -66,11 +54,9 @@ public class PrintService {
 
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss");
-        PrinterUserService pus = new PrinterUserService();
-        PrinterService ps = new PrinterService();
+        PrinterUserService pus = PrinterUserService.getInstance();
+        PrinterService ps = PrinterService.getInstance();
         Print print = new Print();
-        Printer printer = new Printer();
-        PrinterUser user = new PrinterUser();
 
         if (parts[0].equalsIgnoreCase("HS_Lab")) { //it trys convert to unique name here
             parts[0] = "High.School.Lab";
@@ -78,28 +64,34 @@ public class PrintService {
         if (parts[0].equalsIgnoreCase("MS_Lab")) { //and here
             parts[0] = "Middle_School";
         }
+
+        Printer printer;
+        PrinterUser user;
+
         try {
             date = df.parse(parts[2]);
-            printer = ps.getByName(parts[0]);
-            user = pus.getByLogin(parts[1]);
+            if ((printer = ps.getByName(parts[0])) == null) {
+                printer = new Printer();
+            }
+
+            if ((user = pus.getByLogin(parts[1])) == null) {
+                user = new PrinterUser();
+            }
 
             if (printer.getId() == null) { //if system didn't find a printer
-                Printer newPrinter = new Printer();
-                newPrinter.setCounter(Long.parseLong("1"));
-                newPrinter.setName(parts[0]);
-                newPrinter.setPlace(parts[0]);
-                ps.save(newPrinter);
-                printer = ps.getByName(newPrinter.getName());
-
+                printer.setCounter(Long.parseLong("1"));
+                printer.setName(parts[0]);
+                printer.setPlace(parts[0]);
+                ps.save(printer);
+                printer = ps.getByName(printer.getName());
             }
             if (user.getId() == null) { //if system didn't find the user it saves a new one
-                PrinterUser newUser = new PrinterUser();
-                newUser.setLogin(parts[1]);
-                newUser.setCounter(Long.parseLong("1"));
-                newUser.setCategory("");
-                newUser.setName(parts[1]);
-                pus.save(newUser);
-                user = pus.getByLogin(newUser.getLogin());
+                user.setLogin(parts[1]);
+                user.setCounter(Long.parseLong("1"));
+                user.setCategory("");
+                user.setName(parts[1]);
+                pus.save(user);
+                user = pus.getByLogin(user.getLogin());
             }
             print.setPrinter(printer);
             print.setPrinterUser(user);
@@ -113,6 +105,7 @@ public class PrintService {
 
             this.save(print);
         } catch (Exception ex) {
+            ex.printStackTrace();
             return new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problem persisting print. ", ex.getMessage());
         }
         return null;
@@ -173,5 +166,58 @@ public class PrintService {
         String lastFileUploaded = printDAO.getLastFileUploaded();
         factory.shutTx();
         return lastFileUploaded;
+    }
+
+    public Long getFilteredPrints(String schoolYear, String month, int printerUserId) {
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrintDAO printDAO = factory.getPrintDAO();
+        month = convertMonth(month);
+        int year = getYearFromSchollYear(schoolYear, month);
+        Long prints = printDAO.getFilteredPrints(year, month, printerUserId);
+        factory.shutTx();
+        return prints;
+    }
+
+    private int getYearFromSchollYear(String schoolYear, String month) {
+                
+        if(Integer.parseInt(month) <= 7){
+            return Integer.parseInt(schoolYear.substring(5));
+        }
+        else {
+            return Integer.parseInt(schoolYear.substring(0, 3));
+        }
+    }
+
+    private String convertMonth(String month) {
+
+        String m = "";
+
+        if (month.startsWith("Jan")) {
+            m = "01";
+        } else if (month.startsWith("Feb")) {
+            m = "02";
+        } else if (month.startsWith("Mar")) {
+            m = "03";
+        } else if (month.startsWith("Apr")) {
+            m = "04";
+        } else if (month.startsWith("May")) {
+            m = "05";
+        } else if (month.startsWith("Jun")) {
+            m = "06";
+        } else if (month.startsWith("Jul")) {
+            m = "07";
+        } else if (month.startsWith("Aug")) {
+            m = "08";
+        } else if (month.startsWith("Sep")) {
+            m = "09";
+        } else if (month.startsWith("Oct")) {
+            m = "10";
+        } else if (month.startsWith("Nov")) {
+            m = "11";
+        } else if (month.startsWith("Dec")) {
+            m = "12";
+        }
+
+        return m;
     }
 }
