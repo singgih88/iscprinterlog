@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
 /**
- * @version 2011.APR.20.01
+ * @version 2011.APR.29.01
  * @author edilson.ales
  */
 public class HibernatePrinterUserDAO extends HibernateGenericDAO<PrinterUser> implements PrinterUserDAO {
@@ -21,17 +21,8 @@ public class HibernatePrinterUserDAO extends HibernateGenericDAO<PrinterUser> im
     public PrinterUser getByLogin(String login) {
         Query query = this.getSession().createQuery("from PrinterUser where login = :userLogin");
         query.setParameter("userLogin", login);
-        List users = query.list();
-        PrinterUser u = new PrinterUser();
-        try {
-            for (Object aux : users) {
-                u = (PrinterUser) aux;
-            }
-            return u;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return null;
-        }   
+        query.setMaxResults(1);
+        return (PrinterUser) query.uniqueResult();
     }
 
     @Override
