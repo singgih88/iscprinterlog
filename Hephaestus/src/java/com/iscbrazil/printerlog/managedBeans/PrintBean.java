@@ -1,7 +1,6 @@
 package com.iscbrazil.printerlog.managedBeans;
 
 import com.iscbrazil.printerlog.business.PrintService;
-import com.iscbrazil.printerlog.model.PrinterUser;
 import com.iscbrazil.printerlog.model.UserReport;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -24,6 +24,8 @@ import org.primefaces.model.UploadedFile;
 @SessionScoped
 public class PrintBean implements Serializable {
 
+    //private Long printerUserId;
+    private HtmlInputHidden printerUserId;
     private String lastFileUploaded;
     private List<String> schoolYearsSelected;
     private List<String> monthsSelected;
@@ -33,6 +35,15 @@ public class PrintBean implements Serializable {
     public PrintBean() {
         this.schoolYearsSelected = new ArrayList<String>();
         this.monthsSelected = new ArrayList<String>();
+        this.printerUserId = new HtmlInputHidden();
+    }
+
+    public HtmlInputHidden getPrinterUserId() {
+        return printerUserId;
+    }
+
+    public void setPrinterUserId(HtmlInputHidden printerUserId) {
+        this.printerUserId = printerUserId;
     }
 
     public void handleFileUpload(FileUploadEvent event) {
@@ -126,23 +137,33 @@ public class PrintBean implements Serializable {
         this.months = months;
     }
 
+//    public void userReports() {
+//        PrintService printService = PrintService.getInstance();
+//        int printerUserId = 1;
+//        String sys = "2007-2008";
+//        String month = "May";
+//        System.out.println("PrintBean antes do printService, variaveis " + sys + month + printerUserId);
+//        printService.getFilteredPrints(sys, month, printerUserId);
+//        System.out.println("PrintBean depois do printService");
+//    }
     public List<UserReport> getUserReports() {
-        
-        int printerUserId = 1;
+
+        int id = Integer.parseInt(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("printerUserId"));
+
         List<UserReport> userReports = new ArrayList<UserReport>();
         PrintService printService = PrintService.getInstance();
         UserReport userReport;
 
-        for (String sys : this.schoolYearsSelected) {
-            for(String month : this.monthsSelected) {
+        for (int i = 0; i < this.schoolYearsSelected.size(); i++) {
+            for (int j = 0; j < this.monthsSelected.size(); j++) {
                 userReport = new UserReport();
-                userReport.setSchoolYear(sys);
-                userReport.setMonth(month);
-                userReport.setPrintsByMonth(printService.getFilteredPrints(sys, month, printerUserId));
+                userReport.setSchoolYear(this.schoolYearsSelected.get(i));
+                userReport.setMonth(this.monthsSelected.get(j));
+                userReport.setPrintsByMonth(printService.getFilteredPrints(this.schoolYearsSelected.get(i), this.monthsSelected.get(j), id));
                 userReports.add(userReport);
+
             }
         }
-
         return userReports;
     }
 }
