@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" template="./template.xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.prime.com.tr/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+    <ui:define name="mainContent">
+        <p:dataTable var="usrReport" value="#{printBean.userReports}"
+                     rows="12" paginator="true" paginatorPosition="bottom" >
+            <p:column styleClass="columnContent">
+                <f:facet name="header">
+                    <h:outputText value="School Year"/>
+                </f:facet>
+                <h:outputText value="#{usrReport.schoolYear}" />
+            </p:column>
+            <p:column styleClass="columnContent">
+                <f:facet name="header">
+                    <h:outputText value="Month" />
+                </f:facet>
+                <h:outputText value="#{usrReport.month}" />
+            </p:column>
+            <p:column styleClass="columnContent">
+                <f:facet name="header">
+                    <h:outputText value="Total Print" />
+                </f:facet>
+                <h:outputText value="#{usrReport.printsByMonth}" />
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>
