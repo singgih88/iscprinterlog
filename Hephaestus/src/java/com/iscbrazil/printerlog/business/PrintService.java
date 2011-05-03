@@ -13,7 +13,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 
 /**
- * @version 2011.APR.29.01
+ * @version 2011.MAY.03.01
  * @author edilson.ales
  */
 public class PrintService {
@@ -38,6 +38,7 @@ public class PrintService {
 
         try {
             parts = dirtyLine.split(";", 6);
+            
             parts[2] = parts[2].replace("[", "");
             parts[2] = parts[2].replace("]", "");
             ip = parts[5].replace("::ffff:", "");
@@ -58,7 +59,13 @@ public class PrintService {
         PrinterService ps = PrinterService.getInstance();
         Print print = new Print();
 
-        if (parts[0].equalsIgnoreCase("HS_Lab")) { //it trys convert to unique name here
+        if (parts[0].trim().equalsIgnoreCase("")) {
+            return new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Problem with the source file. No Printer name",
+                    "String malformad: " + dirtyLine);
+        }
+
+        if (parts[0].equalsIgnoreCase("HS_Lab") || parts[0].equalsIgnoreCase("High_School")) { //it trys convert to unique name here
             parts[0] = "High.School.Lab";
         }
         if (parts[0].equalsIgnoreCase("MS_Lab")) { //and here
@@ -184,7 +191,7 @@ public class PrintService {
             return Integer.parseInt(schoolYear.substring(5));
         }
         else {
-            return Integer.parseInt(schoolYear.substring(0, 3));
+            return Integer.parseInt(schoolYear.substring(0, 4));
         }
     }
 

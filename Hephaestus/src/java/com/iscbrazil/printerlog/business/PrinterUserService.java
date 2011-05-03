@@ -6,7 +6,7 @@ import com.iscbrazil.printerlog.model.PrinterUser;
 import java.util.List;
 
 /**
- * @version 2011.APR.29.01
+ * @version 2011.MAY.03.01
  * @author edilson.ales
  */
 public class PrinterUserService {
@@ -36,6 +36,15 @@ public class PrinterUserService {
         FactoryDAO factory = FactoryDAO.getFactoryDAO();
         PrinterUserDAO printerUserDAO = factory.getPrinterUserDAO();
         PrinterUser user = printerUserDAO.getByLogin(login);
+        factory.shutTx();
+        return user;
+    }
+
+    public PrinterUser getById(Long id) {
+
+        FactoryDAO factory = FactoryDAO.getFactoryDAO();
+        PrinterUserDAO printerUserDAO = factory.getPrinterUserDAO();
+        PrinterUser user = printerUserDAO.getById(id);
         factory.shutTx();
         return user;
     }
