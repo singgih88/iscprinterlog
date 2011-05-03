@@ -4,11 +4,11 @@
 
     <ui:define name="mainContent" id="adminComponet">
         <h:form id="formUpload" enctype="multipart/form-data">
-            <p:fileUpload id="up1" fileUploadListener="#{printBean.handleFileUpload}" allowTypes="*.txt;" multiple="true"
+            <p:fileUpload id="up1" fileUploadListener="#{fileUploadBean.handleFileUpload}" allowTypes="*.txt;" multiple="true"
                           description="*.txt" sizeLimit="512000" update="t2 formMaster:formMenu:growlMsg" />
             <br />
             <h:outputLabel value="Last file uploaded: " style="position: relative; left: 20px;" for="t2" /><br />
-            <h:outputText id="t2" value="#{printBean.lastFileUploaded}" style="position: relative; left: 5px;" />
+            <h:outputText id="t2" value="#{fileUploadBean.lastFileUploaded}" style="position: relative; left: 5px;" />
         </h:form>
     </ui:define>
 </ui:composition>
