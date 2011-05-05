@@ -4,7 +4,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
 
-    <div id="divInfo" style=" float: left; position: relative; left: 13px; top: 13px; width: 409px">
+    <div id="divInfo" style=" float: left; position: relative; left: 13px; top: 13px; width: 397px">
         <p:panel id="p1" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo" >
             <f:facet name="header">
                 <h:outputText id="opt1" value="#{printerUserBean.userSelected.name}" /><br />
@@ -23,7 +23,7 @@
                     </h:selectManyListbox>
                 </h:panelGrid>
             </f:ajax>
-            <h:outputLink id="ehestequenaofunciona" value="reportUser.xhtml" style="position: relative; left: 98px; top: 3px;">
+            <h:outputLink id="opt3" value="reportUser.xhtml" style="position: relative; left: 98px; top: 3px;">
                 <f:param name="printerUserId" value="#{printerUserBean.userSelected.id}" />
                 <h:outputText value="Generate User Report" />
             </h:outputLink>

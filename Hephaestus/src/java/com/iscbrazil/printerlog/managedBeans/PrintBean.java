@@ -11,12 +11,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 /**
- * @version 2011.MAY.03.01
+ * @version 2011.MAY.04.01
  * @author edilson.ales
  */
 @ManagedBean
 @SessionScoped
-public class PrintBean implements Serializable{
+public class PrintBean implements Serializable {
 
     private List<String> schoolYearsSelected;
     private List<String> monthsSelected;
@@ -85,11 +85,6 @@ public class PrintBean implements Serializable{
         PrintService printService = PrintService.getInstance();
         String name = PrinterUserService.getInstance().getById(Long.valueOf(id)).getName();
 
-//        for (String sys : this.schoolYearsSelected) {
-//            for (String m : this.monthsSelected) {
-//                this.userReports.add(new UserReport(sys, Integer.valueOf(id), name, m, printService.getFilteredPrints(sys, m, Integer.valueOf(id))));
-//            }
-//        }
         for (String sys : getSchoolYearsSelected()) {
             for (String m : getMonthsSelected()) {
                 this.userReports.add(new UserReport(sys, Integer.valueOf(id), name, m, printService.getFilteredPrints(sys, m, Integer.valueOf(id))));

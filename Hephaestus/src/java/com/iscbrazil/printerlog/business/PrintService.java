@@ -13,7 +13,7 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 
 /**
- * @version 2011.MAY.03.01
+ * @version 2011.MAY.04.01
  * @author edilson.ales
  */
 public class PrintService {
@@ -48,8 +48,8 @@ public class PrintService {
 
         } catch (Exception e) {
             return new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Problem with the source file. ",
-                    "String malformad: " + dirtyLine + " " + e.getMessage());
+                    "Problem with the source file " + fileName,
+                    ". String malformad: " + dirtyLine + " " + e.getMessage());
         }
 
 
@@ -61,7 +61,7 @@ public class PrintService {
 
         if (parts[0].trim().equalsIgnoreCase("")) {
             return new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Problem with the source file. No Printer name",
+                    "Problem with the source file " + fileName + ". No Printer name. ",
                     "String malformad: " + dirtyLine);
         }
 
@@ -112,8 +112,7 @@ public class PrintService {
 
             this.save(print);
         } catch (Exception ex) {
-            ex.printStackTrace();
-            return new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problem persisting print. ", ex.getMessage());
+            return new FacesMessage(FacesMessage.SEVERITY_ERROR, "Problem persisting print. File " + fileName, ex.getMessage());
         }
         return null;
     }
