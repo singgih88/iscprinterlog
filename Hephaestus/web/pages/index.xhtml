@@ -25,11 +25,10 @@
         </div>
         <h:form id="formInfo">
             <c:set var="browser" value="${header['User-Agent']}" scope="request" />
-            <c:if test="#{templateBean.validateBrowser(browser)}">
+            <c:if test="#{tempBean.validateBrowser(browser)}">
                 <ui:include src="parts/userSearch.xhtml" />
             </c:if>
             <ui:include src="parts/userInfo.xhtml" />
         </h:form>
     </ui:define>
-
 </ui:composition>

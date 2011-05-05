@@ -84,7 +84,12 @@ public class PrintBean implements Serializable {
         this.userReports.clear();
         PrintService printService = PrintService.getInstance();
         String name = PrinterUserService.getInstance().getById(Long.valueOf(id)).getName();
-
+        if((getSchoolYearsSelected()) == null || (getSchoolYearsSelected()).isEmpty()) {
+            this.schoolYearsSelected.add("All");
+        }
+        if((getMonthsSelected()) == null || (getMonthsSelected()).isEmpty()) {
+            this.monthsSelected.add("All");
+        }
         for (String sys : getSchoolYearsSelected()) {
             for (String m : getMonthsSelected()) {
                 this.userReports.add(new UserReport(sys, Integer.valueOf(id), name, m, printService.getFilteredPrints(sys, m, Integer.valueOf(id))));

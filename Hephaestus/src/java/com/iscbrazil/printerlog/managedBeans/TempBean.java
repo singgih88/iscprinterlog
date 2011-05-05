@@ -6,12 +6,12 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 /**
- * @version 2011.APR.20.01
+ * @version 2011.MAY.05.01
  * @author edilson.ales
  */
 @ManagedBean
 @RequestScoped
-public class TemplateBean {
+public class TempBean {
 
     public boolean validateBrowser(String browser) {
         if(browser.contains("MSIE")) {
