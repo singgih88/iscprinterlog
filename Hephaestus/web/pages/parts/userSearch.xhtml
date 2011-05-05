@@ -10,7 +10,7 @@
             <p:autoComplete id="search-users" value="#{printerUserBean.userComplete}"
                             completeMethod="#{printerUserBean.completePrinterUsers}" />
             <h:commandButton value="Ok" onclick="panelInfo.show();" style="position: relative; left: 13px;">
-                <f:ajax event="click" execute="@form" render="opt1 opt2 opt3" listener="#{printerUserBean.bindUserSelected}" />
+                <f:ajax event="click" execute="@form" render="opt1 opt2 opt3 opt4" listener="#{printerUserBean.bindUserSelected}" />
             </h:commandButton>
         </p:panel>
     </div>

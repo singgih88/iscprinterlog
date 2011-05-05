@@ -5,11 +5,12 @@
                 xmlns:h="http://java.sun.com/jsf/html">
 
     <div id="divInfo" style=" float: left; position: relative; left: 13px; top: 13px; width: 397px">
-        <p:panel id="p1" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo" >
+        <p:panel id="p1" visible="hidden" widgetVar="panelInfo" >
             <f:facet name="header">
                 <h:outputText id="opt1" value="#{printerUserBean.userSelected.name}" /><br />
                 <h:outputText id="opt2" value="#{printerUserBean.userSelected.category}" style="font-size: smaller;"/>
             </f:facet>
+            <h:outputText id="opt3" value="Total of prints: #{printerUserBean.userSelected.counter}" /><br /><br />
             <h:outputText value="Select reports school year(s) and month(s)" /><br /><br />
             <f:ajax event="change" execute="p1">
                 <h:panelGrid id="pg" columns="2" columnClasses="reportColumn" style="position: relative; left: 80px;">
@@ -23,7 +24,7 @@
                     </h:selectManyListbox>
                 </h:panelGrid>
             </f:ajax>
-            <h:outputLink id="opt3" value="reportUser.xhtml" style="position: relative; left: 98px; top: 3px;">
+            <h:outputLink id="opt4" value="reportUser.xhtml" style="position: relative; left: 98px; top: 3px;">
                 <f:param name="printerUserId" value="#{printerUserBean.userSelected.id}" />
                 <h:outputText value="Generate User Report" />
             </h:outputLink>
