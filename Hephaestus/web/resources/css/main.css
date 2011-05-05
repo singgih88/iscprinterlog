@@ -46,7 +46,7 @@ div#navbar2 lia:hover {
 }
 
 .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
-        border: none;
+    border: none;
 }
 
 .ui-layout {
@@ -56,16 +56,12 @@ div#navbar2 lia:hover {
     left: 25%;
 }
 
-.ui-growl {
-/*    left: 45%;*/
-}
-
 .ui-datatable-data, .ui-datatable {
-    width: 369px;
+    width: 350px;
 }
 
 .ui-datatable-liner {
-    width: 160px;
+    width: 150px;
 }
 
 .columnContent {
@@ -73,11 +69,18 @@ div#navbar2 lia:hover {
 }
 
 .reportColumn {
-    width: 90px;
+    width: 80px;
 }
 
 body {
     font-size: 8pt;
+}
+
+.reportDataTable {
+    position: relative;
+    left: 50%;
+    margin-left: -342px;
+    width: 694px;
 }
 
 .footer {

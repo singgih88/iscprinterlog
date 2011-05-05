@@ -6,7 +6,7 @@
     <ui:define name="mainContent">
 
         <p:dataTable var="usrReport" value="#{printBean.userReports}"
-                     rows="12" paginator="true" paginatorPosition="bottom" >
+                     rows="12" paginator="true" paginatorPosition="bottom" styleClass="reportDataTable">
             <p:column styleClass="columnContent">
                 <f:facet name="header">
                     <h:outputText value="User"/>

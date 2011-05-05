@@ -9,16 +9,19 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
- * @version 2011.MAY.03.01
+ * @version 2011.MAY.04.01
  * @author edilson.ales
  */
 @ManagedBean
 @SessionScoped
-public class FileUploadBean implements Serializable{
+public class FileUploadBean implements Serializable {
+
     private String lastFileUploaded;
 
     public void handleFileUpload(FileUploadEvent event) {
@@ -33,23 +36,27 @@ public class FileUploadBean implements Serializable{
         }
         this.lastFileUploaded = file.getFileName();
         FacesMessage msg = new FacesMessage();
+        String dirtyLine;
 
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(file.getInputstream()));
-            String dirtyLine;
-
             while ((dirtyLine = in.readLine()) != null) {
                 if ((msg = printService.processLine(dirtyLine, file.getFileName())) != null) {
+                    Logger.getLogger(FileUploadBean.class.getName()).log(Level.INFO, msg.getSummary() + " " + msg.getDetail());
                     context.addMessage("formMaster:formMenu:growlMsg", msg);
                     return;
                 }
             }
-            context.addMessage("formMaster:formMenu:growlMsg", new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Well done!",
-                    "File " + this.lastFileUploaded + " has been successfully uploaded!"));
-        } catch (IOException ex) {
-            context.addMessage("formMaster:formMenu:growlMsg", new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Problem reading file source", ex.getMessage()));
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Well done!",
+                    "File " + this.lastFileUploaded + " has been successfully uploaded!");
+            Logger.getLogger(FileUploadBean.class.getName()).log(Level.INFO, msg.getSummary() + " " + msg.getDetail());
+            context.addMessage("formMaster:formMenu:growlMsg", msg);
+        }
+        catch (IOException ex) {
+            msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "Problem reading file source " + this.lastFileUploaded, ex.getMessage());
+            Logger.getLogger(FileUploadBean.class.getName()).log(Level.ERROR, msg.getSummary() + " " + msg.getDetail());
+            context.addMessage("formMaster:formMenu:growlMsg", msg);
         }
     }
 

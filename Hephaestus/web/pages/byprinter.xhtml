@@ -7,7 +7,7 @@
             <p:dataTable var="prt" value="#{printerBean.allPrinters}" rows="15" paginator="true"
                          selection="#{printerBean.printerSelected}" selectionMode="single" update="p1_pt"
                          onselectComplete="panelInfo_pt.show();" widgetVar="printersTable"
-                         paginatorPosition="bottom" pageLinks="5" style="text-align: center; " >
+                         paginatorPosition="bottom" pageLinks="5" style="text-align: center;" >
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="Name"/>
@@ -22,7 +22,7 @@
                 </p:column>
             </p:dataTable>
         </div>
-        <div style=" float: left; position: relative; left: 13px; width: 410px">
+        <div style=" float: left; position: relative; left: 13px; width: 397px">
             <p:panel id="p1_pt" style="text-transform: capitalize;" visible="hidden" widgetVar="panelInfo_pt">
                 <f:facet name="header">
                     <h:outputText value="#{printerBean.printerSelected.name}" /><br />

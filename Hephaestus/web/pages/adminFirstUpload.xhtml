@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.prime.com.tr/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <f:view>
+        <h:head>
+            <title>ISC Printer Log</title>
+        </h:head>
+        <h:body>
+            <h:form id="formUpload" enctype="multipart/form-data">
+                <p:growl id="growlMsg" showDetail="true" life="10000" />
+                <p:fileUpload id="up1" fileUploadListener="#{fileUploadBean.handleFileUpload}" allowTypes="*.txt;" multiple="true"
+                              description="*.txt" sizeLimit="512000" update="t2 growlMsg" />
+                <br />
+                <h:outputLabel value="Last file uploaded: " style="position: relative; left: 20px;" for="t2" /><br />
+                <h:outputText id="t2" value="#{fileUploadBean.lastFileUploaded}" style="position: relative; left: 5px;" />
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
