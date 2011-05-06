@@ -12,7 +12,7 @@ div#navbar2 {
     text-align: right;
     border-top: solid #000 1px;
     border-bottom: solid #000 1px;
-    background-color: #336699;
+    background-color: #00337f;
     position: absolute;
     bottom: -0px;
 }
@@ -42,7 +42,7 @@ div#navbar2 lia:visited {
 div#navbar2 lia:hover {
     font-weight: bold;
     color: #FFF;
-    background-color: #3366FF;
+    background-color: #00337f;
 }
 
 .ui-layout, .ui-layout-doc, .ui-layout-unit, .ui-layout-wrap, .ui-layout-bd, .ui-layout-hd {
@@ -88,9 +88,9 @@ body {
     width: 100%;
     border-top: solid #000 1px;
     border-bottom: solid #000 1px;
-    background-color: #336699;
+    background-color: #00337f;
     position: absolute;
-    bottom: -0px;
+    bottom: 0px;
 }
 
 .HephaestusProject {

@@ -12,15 +12,15 @@
         <h:body>
             <h:outputStylesheet library="css" name="main.css" />
             <h:form id="formMaster">
-                <p:layout style="left: 50%; margin-left: -384px; width: 768px;">
-                    <p:layoutUnit position="top" height="150" >
+                <p:layout style="left: 50%; margin-left: -384px; width: 768px; height: 727px;" >
+                    <p:layoutUnit position="top" height="200" >
                         <h:form id="formMenu">
                             <p:growl id="growlMsg" showDetail="true" life="10000" />
-                            <h:outputText value="ISC Printer Log" style="font-size: 16pt"/>
+                            <h:graphicImage library="img" name="50years_logo.jpg" style="position: absolute; top: -2px; left: 8px; width: 200px; height: 180px;"/>
+                            <h:graphicImage library="img" name="blue_logo.jpg" style="position: absolute; top: -65px; right: 10px;" />
                             <div id="navbar2">
                                 <ul>
                                     <li><a href="index.xhtml">User</a></li>
-                                    <li><a href="bytime.xhtml">Time</a></li>
                                     <li><a href="byprinter.xhtml">Printer</a></li>
                                     <li><a href="admin.xhtml">Admin</a></li>
                                 </ul>
@@ -30,13 +30,13 @@
                     <p:layoutUnit position="center">
                         <h:form id="formContent">
                             <ui:insert id="mainContent" name="mainContent">Here is all the site content</ui:insert>
-                            <div class="footer">
-                                <div class="HephaestusProject">
-                                    <h:outputText value="ISC Technology Department" styleClass="HephaestusProjectText" />
-                                    <h:graphicImage library="img" name="hephaestus.jpg" />
-                                </div>
-                            </div>
                         </h:form>
+                        <div class="footer">
+                            <div class="HephaestusProject">
+                                <h:outputText value="ISC Technology Department" styleClass="HephaestusProjectText" />
+                                <h:graphicImage library="img" name="hephaestus.jpg" />
+                            </div>
+                        </div>
                     </p:layoutUnit>
                 </p:layout>
             </h:form>
